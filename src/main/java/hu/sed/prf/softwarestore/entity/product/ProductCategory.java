@@ -14,8 +14,7 @@ import javax.persistence.UniqueConstraint;
 uniqueConstraints = @UniqueConstraint(name = "unique_name", columnNames = {"name"}))
 public class ProductCategory implements Serializable {
 
-	// FIXME: This number should be generated somehow
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 706916681422342398L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)

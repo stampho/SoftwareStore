@@ -11,11 +11,10 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "user",
-		uniqueConstraints = @UniqueConstraint(name = "unique_emil", columnNames = {"email"}))
+		uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = {"email"}))
 public class User implements Serializable {
 
-	// FIXME: This number should be generated somehow
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8091600730565788663L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -26,7 +25,7 @@ public class User implements Serializable {
 	// TODO: Regex for the email
 	private String email;
 
-	// TODO: Add the folowing members!
+	// TODO: Add the following members!
 	//private String password;
 
 	// TODO: Store the time when the user registered

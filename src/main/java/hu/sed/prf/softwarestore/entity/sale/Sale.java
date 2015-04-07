@@ -4,6 +4,7 @@ import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Sale implements Serializable {
 
-	// FIXME: This number should be generated somehow
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4077516638300084676L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -26,9 +26,11 @@ public class Sale implements Serializable {
 
 	private User user;
 
-	// TODO: Connection should specified here: we need JoinTable (ManyToMany)
+	// TODO(pvarga): Connection should specified here: we need JoinTable (ManyToMany)
 	// More than one product can be ordered at once
-	private List<Product> products;
+	// FIXME(pvarga): Use List here!
+	//private List<Product> products;
+	private Product products;
 
 	// Price might be changed. For example discount or increase
 	private Long price;
@@ -40,7 +42,8 @@ public class Sale implements Serializable {
 	}
 
 	// FIXME: Do we really need to pass the date in the constructor?
-	public Sale(User user, List<Product> products, Long price, Date saleDate) {
+	//public Sale(User user, List<Product> products, Long price, Date saleDate) {
+	public Sale(User user, Product products, Long price, Date saleDate) {
 		super();
 		this.user = user;
 		this.products = products;
@@ -65,11 +68,17 @@ public class Sale implements Serializable {
 	}
 
 	public List<Product> getProducts() {
-		return products;
+		//return products;
+		// FIXME(pvarga): This is just a workaround until products is used as a list
+		List<Product> p = new ArrayList<Product>();
+		p.add(products);
+		return p;
 	}
 
 	public void setProducts(List<Product> products) {
-		this.products = products;
+		//this.products = products;
+		// FIXME(pvarga): This is just a workaround until products is used as a list
+		this.products = products.get(0);
 	}
 
 	public Long getPrice() {

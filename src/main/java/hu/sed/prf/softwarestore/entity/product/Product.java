@@ -13,8 +13,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Product implements Serializable {
 
-	// FIXME: This number should be generated somehow
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5948656082769127431L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
