@@ -26,12 +26,4 @@ public class UserDataModel extends AbstractDataModel<User, Long> {
 		return userDAO;
 	}
 
-	// TODO(pvarga): Remove this! For testing purposes only.
-	@Override
-	public List<User> getList() {
-		List<User> users = new ArrayList<User>();
-		users.add(new User("user", "user@mail.com"));
-		return users;
-	}
-
 }
