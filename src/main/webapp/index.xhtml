@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    template="/templates/default.xhtml">
-    <ui:define name="content">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
 
-        <h1>SoftwareStore</h1>
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{userDataModel.load()}" />
+	</f:metadata>
 
-    </ui:define>
+	<ui:define name="content">
+
+		<h1>SoftwareStore</h1>
+
+		<h:form id="userListForm">
+			<div>
+				<h:outputText value="no users"
+					rendered="#{empty userDataModel.list}" />
+			</div>
+
+			<h:dataTable id="userTable" value="#{userDataModel.list}" var="user"
+				rendered="#{not empty userDataModel.list}"
+				styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{user.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">E-mail</f:facet>
+					<h:outputText value="#{user.email}" />
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
+	</ui:define>
 </ui:composition>
