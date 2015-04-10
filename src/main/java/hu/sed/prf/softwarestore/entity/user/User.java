@@ -1,17 +1,22 @@
 package hu.sed.prf.softwarestore.entity.user;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user",
-		uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = {"email"}))
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = { "email" }))
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -8091600730565788663L;
@@ -25,22 +30,26 @@ public class User implements Serializable {
 	// TODO: Regex for the email
 	private String email;
 
-	// TODO: Add the following members!
-	//private String password;
+	private String password;
 
-	// TODO: Store the time when the user registered
-	//@Temporal(TemporalType.DATE)
-	//private Date registerDate;
+	@Column(name = "registration_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date registrationDate;
+
+	@Column(name = "real_name")
+	private String realName;
+
+	@Enumerated(EnumType.ORDINAL)
+	private Role role;
 
 	// TODO: It would be nice to have a picture for the user's profile
-	//private String picturePath;
+	// private String picturePath;
 
 	// TODO: Additional members can be:
-	//  - Address
-	//  - Phone number
-	//  - Birthdate
+	// - Address
+	// - Phone number
+	// - Birth date
 	// Most probably we won't need these for a simple webshop.
-
 
 	public User() {
 	}
@@ -73,6 +82,38 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override

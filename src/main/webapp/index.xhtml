@@ -33,6 +33,23 @@
 					<h:outputText value="#{user.email}" />
 				</h:column>
 
+				<h:column>
+					<f:facet name="header">Real Name</f:facet>
+					<h:outputText value="#{user.realName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Administrator (role)</f:facet>
+					<h:outputText value="#{user.role}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Registration</f:facet>
+					<h:outputText value="#{user.registrationDate}">
+						<f:convertDateTime type="both" />
+					</h:outputText>
+				</h:column>
+
 			</h:dataTable>
 		</h:form>
 
