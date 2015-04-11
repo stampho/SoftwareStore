@@ -7,6 +7,8 @@
 
 	<f:metadata>
 		<f:event type="preRenderView" listener="#{userDataModel.load()}" />
+		<f:event type="preRenderView"
+			listener="#{productCategoryDataModel.load()}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -14,6 +16,8 @@
 		<h1>SoftwareStore</h1>
 
 		<h:form id="userListForm">
+			<h2>Users</h2>
+
 			<div>
 				<h:outputText value="no users"
 					rendered="#{empty userDataModel.list}" />
@@ -48,6 +52,32 @@
 					<h:outputText value="#{user.registrationDate}">
 						<f:convertDateTime type="both" />
 					</h:outputText>
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
+		<h:form id="categoryListForm">
+			<h2>Categories</h2>
+
+			<div>
+				<h:outputText value="no categories"
+					rendered="#{empty productCategoryDataModel.list}" />
+			</div>
+
+			<h:dataTable id="categoryTable"
+				value="#{productCategoryDataModel.list}" var="category"
+				rendered="#{not empty productCategoryDataModel.list}"
+				styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{category.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					<h:outputText value="#{category.description}" />
 				</h:column>
 
 			</h:dataTable>

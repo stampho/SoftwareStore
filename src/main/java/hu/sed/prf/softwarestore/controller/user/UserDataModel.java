@@ -1,8 +1,5 @@
 package hu.sed.prf.softwarestore.controller.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
