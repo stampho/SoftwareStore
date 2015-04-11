@@ -16,3 +16,14 @@ insert into product_category (id, name, description) values (5, 'IDE & Developer
 insert into product_category (id, name, description) values (6, 'File Manager', 'Provides a user interface to manage files and folders.');
 insert into product_category (id, name, description) values (7, 'Game', '');
 insert into product_category (id, name, description) values (8, 'Photo & Video', 'Image viewers, video players, editors, etc.');
+
+
+/* PRODUCT TABLE */
+insert into product (id, name, version, release_date, company, category_id, price, description) values (0, 'Windows', '7', {ts '2009-07-22'}, 'Microsoft', 0, 18990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (1, 'Windows OEM (32-bit)', '8', {ts '2012-08-01'}, 'Microsoft', 0, 36990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (2, 'Windows OEM (64-bit)', '8', {ts '2012-08-01'}, 'Microsoft', 0, 36990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (3, 'Windows OEM (32-bit)', '8 Pro', {ts '2012-08-01'}, 'Microsoft', 0, 41990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (4, 'Windows OEM (64-bit)', '8 Pro', {ts '2012-08-01'}, 'Microsoft', 0, 41990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (5, 'Mac OS X', '10.6 Snow Leopard', {ts '2011-06-25'}, 'Apple', 0, 22490, 'Seventh major release of Mac OS X, Apples desktop and server operating system for Macintosh computers.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (6, 'avast! Pro Antivirus', '2014', {ts '2014-02-13'}, 'avast', 1, 10890, 'Avast security software products are developed for Microsoft Windows, Mac OS X, Android and Linux users by AVAST Software s.r.o., a Czech private limited company.');

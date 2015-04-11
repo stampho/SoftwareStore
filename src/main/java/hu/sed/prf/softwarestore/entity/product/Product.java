@@ -3,14 +3,20 @@ package hu.sed.prf.softwarestore.entity.product;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "product")
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 5948656082769127431L;
@@ -24,11 +30,13 @@ public class Product implements Serializable {
 	private String company;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name = "release_date")
 	private Date releaseDate;
 
 	private Long price;
 
-	// TODO: Connection should be specified here: we need a JoinColumn (ManyToOne)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
 	private ProductCategory category;
 
 	private String description;
