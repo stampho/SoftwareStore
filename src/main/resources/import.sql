@@ -1,5 +1,5 @@
 /* USER TABLE */
-insert into user (id, email, name, password, real_name, registration_date, role) values (0, 'admin@softwarestore.prf.sed.hu', 'admin', 'admin', 'Administrator', {ts '2013-04-21 20:42:28.69'}, 1)
+insert into user (id, email, name, password, real_name, registration_date, role) values (0, 'admin@softwarestore.prf.sed.hu', 'admin', 'admin', 'Administrator', {ts '2013-04-21 20:42:28.69'}, 1);
 
 insert into user (id, email, name, password, real_name, registration_date, role) values (1, 'wwilliams@mail.com', 'walter', 'walter', 'Walter Williams', {ts '2015-04-10 22:14:12.08'}, 0);
 insert into user (id, email, name, password, real_name, registration_date, role) values (2, 'gary@gmail.com', 'gary', 'gary', 'Gary Elmore', {ts '2014-12-03 08:00:59.72'}, 0);
@@ -27,3 +27,13 @@ insert into product (id, name, version, release_date, company, category_id, pric
 insert into product (id, name, version, release_date, company, category_id, price, description) values (5, 'Mac OS X', '10.6 Snow Leopard', {ts '2011-06-25'}, 'Apple', 0, 22490, 'Seventh major release of Mac OS X, Apples desktop and server operating system for Macintosh computers.');
 
 insert into product (id, name, version, release_date, company, category_id, price, description) values (6, 'avast! Pro Antivirus', '2014', {ts '2014-02-13'}, 'avast', 1, 10890, 'Avast security software products are developed for Microsoft Windows, Mac OS X, Android and Linux users by AVAST Software s.r.o., a Czech private limited company.');
+
+
+/* SALE TABLE */
+insert into sale (id, user_id, payment, sale_date, comment) values (0, 2, 28000, {ts '2014-12-03 08:45:12'}, 'OS + Antivirus discount');
+insert into sale_product (sale_id, product_id) values (0, 0);
+insert into sale_product (sale_id, product_id) values (0, 6);
+insert into sale (id, user_id, payment, sale_date, comment) values (1, 1, 41990, {ts '2015-04-11 14:25:38'}, '');
+insert into sale_product (sale_id, product_id) values (1, 4);
+insert into sale (id, user_id, payment, sale_date, comment) values (2, 1, 10890, {ts '2015-04-12 07:12:59'}, '');
+insert into sale_product (sale_id, product_id) values (2, 6);

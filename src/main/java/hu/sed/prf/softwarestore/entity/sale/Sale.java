@@ -4,18 +4,25 @@ import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "sale")
 public class Sale implements Serializable {
 
 	private static final long serialVersionUID = -4077516638300084676L;
@@ -24,30 +31,30 @@ public class Sale implements Serializable {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private User user;
 
-	// TODO(pvarga): Connection should specified here: we need JoinTable (ManyToMany)
-	// More than one product can be ordered at once
-	// FIXME(pvarga): Use List here!
-	//private List<Product> products;
-	private Product products;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "sale_product", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private List<Product> products;
 
-	// Price might be changed. For example discount or increase
-	private Long price;
+	private Long payment;
 
-	@Temporal(TemporalType.DATE)
+	@Column(name = "sale_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date saleDate;
+
+	private String comment;
 
 	public Sale() {
 	}
 
-	// FIXME: Do we really need to pass the date in the constructor?
-	//public Sale(User user, List<Product> products, Long price, Date saleDate) {
-	public Sale(User user, Product products, Long price, Date saleDate) {
+	public Sale(User user, List<Product> products, Long payment, Date saleDate) {
 		super();
 		this.user = user;
 		this.products = products;
-		this.price = price;
+		this.payment = payment;
 		this.saleDate = saleDate;
 	}
 
@@ -68,25 +75,19 @@ public class Sale implements Serializable {
 	}
 
 	public List<Product> getProducts() {
-		//return products;
-		// FIXME(pvarga): This is just a workaround until products is used as a list
-		List<Product> p = new ArrayList<Product>();
-		p.add(products);
-		return p;
+		return products;
 	}
 
 	public void setProducts(List<Product> products) {
-		//this.products = products;
-		// FIXME(pvarga): This is just a workaround until products is used as a list
-		this.products = products.get(0);
+		this.products = products;
 	}
 
-	public Long getPrice() {
-		return price;
+	public Long getPayment() {
+		return payment;
 	}
 
-	public void setPrice(Long price) {
-		this.price = price;
+	public void setPayment(Long payment) {
+		this.payment = payment;
 	}
 
 	public Date getSaleDate() {
@@ -95,6 +96,14 @@ public class Sale implements Serializable {
 
 	public void setSaleDate(Date saleDate) {
 		this.saleDate = saleDate;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	@Override
@@ -139,7 +148,7 @@ public class Sale implements Serializable {
 	@Override
 	public String toString() {
 		return "Sale [id=" + id + ", user=" + user + ", products=" + products
-				+ ", price=" + price + ", saleDate=" + saleDate + "]";
+				+ ", payment=" + payment + ", saleDate=" + saleDate + "]";
 	}
 
 }
