@@ -26,14 +26,29 @@ insert into product (id, name, version, release_date, company, category_id, pric
 insert into product (id, name, version, release_date, company, category_id, price, description) values (4, 'Windows OEM (64-bit)', '8 Pro', {ts '2012-08-01'}, 'Microsoft', 0, 41990, 'Personal computer operating system developed by Microsoft as part of the Windows NT family of operating systems.');
 insert into product (id, name, version, release_date, company, category_id, price, description) values (5, 'Mac OS X', '10.6 Snow Leopard', {ts '2011-06-25'}, 'Apple', 0, 22490, 'Seventh major release of Mac OS X, Apples desktop and server operating system for Macintosh computers.');
 
-insert into product (id, name, version, release_date, company, category_id, price, description) values (6, 'avast! Pro Antivirus', '2014', {ts '2014-02-13'}, 'avast', 1, 10890, 'Avast security software products are developed for Microsoft Windows, Mac OS X, Android and Linux users by AVAST Software s.r.o., a Czech private limited company.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (10, 'avast! Pro Antivirus', '2014', {ts '2014-02-13'}, 'avast', 1, 10890, 'Avast security software products are developed for Microsoft Windows, Mac OS X, Android and Linux users by AVAST Software s.r.o., a Czech private limited company.');
 
+insert into product (id, name, version, release_date, company, category_id, price, description) values (20, 'Office', '365 Personal', {ts '2011-06-28'}, 'Microsoft', 2, 19900, 'For consumers, the service allows the use of Microsoft Office apps on Windows and OS X, provides storage space on Microsofts cloud storage service OneDrive, and grants 60 Skype minutes per month.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (21, 'Adobe Acrobat Professional', '11', {ts '2015-04-06'}, 'Adobe Systems', 2, 174900, 'Adobe Acrobat is a family of application software and Web services developed by Adobe Systems to view, create, manipulate, print and manage files in Portable Document Format (PDF).');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (30, 'Outpost Firewall Pro', '9', {ts '2014-02-24'}, 'Agnitum', 3, 10390, 'Software-based personal firewall package developed by Agnitum (founded in 1999 in St. Petersburg, Russia). Has  5 language packs - English, German, French, Spanish and Russian.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (40, 'WinRAR', '5.00', {ts '2015-02-16'}, 'RarLab', 4, 11990, 'File archiver and compressor utility for Windows. It can create archives in RAR or ZIP file formats,[2] and unpack numerous archive file formats.');
+insert into product (id, name, version, release_date, company, category_id, price, description) values (41, 'WinZip', '18 Standard', {ts '2013-10-31'}, 'WinZip', 4, 18990, 'File archiver and compressor for Windows, OS X, iOS and Android developed by WinZip Computing (formerly Nico Mak Computing). It can create archives in Zip file format, and unpack some other archive file formats.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (50, 'Visual Studio', '2010 Professional', {ts '2010-04-01'}, 'Microsoft', 5, 457190, 'An integrated development environment (IDE) from Microsoft. It is used to develop computer programs for Microsoft Windows, as well as web sites, web applications and web services.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (60, 'Total Commander', '8.50', {ts '2014-04-30'}, 'Ghisler', 6, 10990, 'Orthodox File Manager (OFM) for Windows, Windows CE, Windows Mobile, and Android. Some features include a built-in FTP client, tabbed interface, file compare, archive file navigation, and a versatile multi-rename tool with regular expression support.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (70, 'S.T.A.L.K.E.R.: Shadow of Chernobyl', '1.0', {ts '2007-03-23'}, 'GSC Game World', 7, 2490, 'First-person shooter survival horror video game developed by GSC Game World and published by THQ.');
+
+insert into product (id, name, version, release_date, company, category_id, price, description) values (80, 'Adobe Photoshop Elements', '12', {ts '2013-09-01'}, 'Adobe Systems', 8, 29900, 'Raster graphics editor for hobbyists and consumers. It contains most of the features of the professional version but with fewer and simpler options. The program allows users to create, edit, organize and share images.');
 
 /* SALE TABLE */
 insert into sale (id, user_id, payment, sale_date, comment) values (0, 2, 28000, {ts '2014-12-03 08:45:12'}, 'OS + Antivirus discount');
 insert into sale_product (sale_id, product_id) values (0, 0);
-insert into sale_product (sale_id, product_id) values (0, 6);
+insert into sale_product (sale_id, product_id) values (0, 10);
 insert into sale (id, user_id, payment, sale_date, comment) values (1, 1, 41990, {ts '2015-04-11 14:25:38'}, '');
 insert into sale_product (sale_id, product_id) values (1, 4);
 insert into sale (id, user_id, payment, sale_date, comment) values (2, 1, 10890, {ts '2015-04-12 07:12:59'}, '');
-insert into sale_product (sale_id, product_id) values (2, 6);
+insert into sale_product (sale_id, product_id) values (2, 10);
