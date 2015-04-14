@@ -17,21 +17,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Java EE Demo</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <h:outputStylesheet name="css/screen.css" />
+	<title>SoftwareStore</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="css/screen.css" />
 </h:head>
 <h:body>
-    <div id="container">
-        <div id="content">
-            <ui:insert name="content">
+	<div id="container">
+		<div id="header">
+			<h1>SoftwareStore</h1>
+			<ul id="headermenu">
+				<li><h:link outcome="/content/user/signin.xhtml" value="Sign in" /></li>
+				<li><h:link outcome="/content/user/login.xhtml" value="Log in" /></li>
+			</ul>
+		</div>
+		<div id="content">
+			<ui:insert name="content">
                 [Template content will be inserted here]
             </ui:insert>
-        </div>
-        <div id="footer"></div>
-    </div>
+		</div>
+		<div id="footer"></div>
+	</div>
 </h:body>
 </html>

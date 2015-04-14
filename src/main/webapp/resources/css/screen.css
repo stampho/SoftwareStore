@@ -40,6 +40,15 @@ body {
     box-shadow: 3px 3px 15px #d5d5d5;
 }
 
+#header {
+    width: 840px;
+}
+
+#headermenu li {
+	display: inline;
+	list-style-type: none;
+}
+
 #content {
     float: left;
     width: 800px;
