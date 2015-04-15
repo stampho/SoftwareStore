@@ -11,12 +11,12 @@
 		<h:form id="loginform">
 			<h:panelGrid columns="2">
 				<h:outputLabel for="username">Username:</h:outputLabel>
-				<h:inputText id="username" />
+				<h:inputText id="username" value="#{userCredentials.userName}" />
 				<h:outputLabel for="password">Password:</h:outputLabel>
-				<h:inputSecret id="password" />
+				<h:inputSecret id="password" value="#{userCredentials.password}" />
 			</h:panelGrid>
 
-			<h:commandButton value="Log in" />
+			<h:commandButton value="Log in" action="#{login.login()}"/>
 			<h:button value="Cancel" outcome="/index.xhtml" />
 		</h:form>
 	</ui:define>
