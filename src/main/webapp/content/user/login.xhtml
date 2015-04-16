@@ -12,12 +12,10 @@
 			<h:panelGrid columns="3">
 				<h:outputLabel for="username">Username:</h:outputLabel>
 				<h:inputText id="username" value="#{userCredentials.username}" />
-				<h:outputText id="usernameError" value="#{userError.usernameError}"
-					render="{not empty #{userError.usernameError}" styleClass="error" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}" styleClass="error" />
 				<h:outputLabel for="password">Password:</h:outputLabel>
 				<h:inputSecret id="password" value="#{userCredentials.password}" />
-				<h:outputText id="passwordError" value="#{userError.passwordError}"
-					render="{not empty #{userError.passwordError}" styleClass="error" />
+				<h:outputText id="passwordError" value="#{userError.passwordError}" styleClass="error" />
 			</h:panelGrid>
 
 			<h:commandButton value="Log in" action="#{login.login()}" />

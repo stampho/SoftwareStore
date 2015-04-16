@@ -14,12 +14,6 @@
 	</f:metadata>
 
 	<ui:define name="content">
-		<h2>
-			<h:outputText value="Current user: #{login.currentUserName}"
-				rendered="#{not empty login.currentUserName}" />
-			<h:outputText value="Nobody is logged in!"
-				rendered="#{empty login.currentUserName}" />
-		</h2>
 		<h2>Tables</h2>
 		<h:form id="userListForm">
 			<h3>Users</h3>

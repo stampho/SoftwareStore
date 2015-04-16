@@ -41,12 +41,25 @@ body {
 }
 
 #header {
-    width: 840px;
+	width: 840px;
+	min-height: 50px;
+	position: relative;
 }
 
-#headermenu li {
-	display: inline;
-	list-style-type: none;
+.title {
+	color: #243446;
+	font-size: 2.25em;
+}
+
+.title:hover {
+	color: #243446;
+	text-decoration: none;
+}
+
+.headermenu {
+	bottom: 0;
+	right: 0;
+	position: absolute;
 }
 
 #content {

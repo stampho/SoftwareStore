@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:link outcome="/index.xhtml" value="SoftwareStore" styleClass="title" />
+
+	<h:panelGroup rendered="#{empty login.currentUserName}"
+		styleClass="headermenu">
+		<h:link outcome="/content/user/signin.xhtml" value="Sign in" />
+		<h:link outcome="/content/user/login.xhtml" value="Log in" />
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{not empty login.currentUserName}"
+		styleClass="headermenu">
+		<h:form>
+			<h:link outcome="/content/user/profile.xhtml"
+				value="#{login.currentUserName}" style="font-weight: bold;" />
+			<h:link outcome="/content/cart/cart.xhtml" value="Cart" />
+			<h:commandLink action="#{login.logout()}" value="Log out" />
+		</h:form>
+	</h:panelGroup>
+
+</ui:composition>

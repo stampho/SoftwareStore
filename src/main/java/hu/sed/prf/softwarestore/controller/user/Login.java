@@ -56,6 +56,12 @@ public class Login implements Serializable {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
+	public String logout() {
+		setCurrentUserName(null);
+		error.reset();
+		return "/index.xhtml?faces-redirect=true";
+	}
+
 	public String getCurrentUserName() {
 		return currentUsername;
 	}

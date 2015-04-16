@@ -27,11 +27,7 @@
 <h:body>
 	<div id="container">
 		<div id="header">
-			<h1>SoftwareStore</h1>
-			<ul id="headermenu">
-				<li><h:link outcome="/content/user/signin.xhtml" value="Sign in" /></li>
-				<li><h:link outcome="/content/user/login.xhtml" value="Log in" /></li>
-			</ul>
+			<ui:include src="/header.xhtml" />
 		</div>
 		<div id="content">
 			<ui:insert name="content">
