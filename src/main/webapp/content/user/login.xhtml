@@ -9,14 +9,18 @@
 		<h2>Log in</h2>
 
 		<h:form id="loginform">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<h:outputLabel for="username">Username:</h:outputLabel>
-				<h:inputText id="username" value="#{userCredentials.userName}" />
+				<h:inputText id="username" value="#{userCredentials.username}" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}"
+					render="{not empty #{userError.usernameError}" styleClass="error" />
 				<h:outputLabel for="password">Password:</h:outputLabel>
 				<h:inputSecret id="password" value="#{userCredentials.password}" />
+				<h:outputText id="passwordError" value="#{userError.passwordError}"
+					render="{not empty #{userError.passwordError}" styleClass="error" />
 			</h:panelGrid>
 
-			<h:commandButton value="Log in" action="#{login.login()}"/>
+			<h:commandButton value="Log in" action="#{login.login()}" />
 			<h:button value="Cancel" outcome="/index.xhtml" />
 		</h:form>
 	</ui:define>

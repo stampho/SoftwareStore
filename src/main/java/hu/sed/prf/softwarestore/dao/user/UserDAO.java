@@ -14,7 +14,7 @@ public class UserDAO extends AbstractGenericDAO<User, Long> {
 		super(User.class);
 	}
 
-	public String getPasswordForUserName(String name) {
+	public String getPasswordForUsername(String name) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("name", name));
 		User user = (User) criteria.uniqueResult();

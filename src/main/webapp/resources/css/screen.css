@@ -154,6 +154,10 @@ input {
     margin-left: 85px;
 }
 
+.error {
+	color: red;
+}
+
 /*  -----  table style  -------  */
 
 /*  = Simple Table style (black header, grey/white stripes  */

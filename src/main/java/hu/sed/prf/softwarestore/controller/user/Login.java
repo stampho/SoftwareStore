@@ -18,34 +18,50 @@ public class Login implements Serializable {
 	private UserCredentials credentials;
 
 	@Inject
+	private UserError error;
+
+	@Inject
 	private UserDAO userDAO;
 
-	private String currentUserName;
+	private String currentUsername;
 
 	public String login() {
-		String userName = credentials.getUserName();
+		String username = credentials.getUsername();
 		String password = credentials.getPassword();
 
-		if (userName.isEmpty() || password.isEmpty())
+		error.reset();
+
+		if (username.isEmpty())
+			error.setUsernameError("Username is missing");
+
+		if (password.isEmpty())
+			error.setPasswordError("Password is missing");
+
+		if (error.hasError())
 			return "";
 
-		String passwordForUser = userDAO.getPasswordForUserName(userName);
-		if (passwordForUser == null)
+		String passwordForUser = userDAO.getPasswordForUsername(username);
+		if (passwordForUser == null) {
+			error.setUsernameError("User '" + username + "' does not exist");
 			return "";
+		}
 
-		if (!password.equals(passwordForUser))
+		if (!password.equals(passwordForUser)) {
+			error.setPasswordError("Invalid Password");
 			return "";
+		}
 
-		this.setCurrentUserName(userName);
+		setCurrentUserName(username);
+		error.reset();
 		return "/index.xhtml?faces-redirect=true";
 	}
 
 	public String getCurrentUserName() {
-		return currentUserName;
+		return currentUsername;
 	}
 
 	public void setCurrentUserName(String currentUserName) {
-		this.currentUserName = currentUserName;
+		this.currentUsername = currentUserName;
 	}
 
 }
