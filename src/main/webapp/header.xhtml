@@ -6,19 +6,19 @@
 
 	<h:link outcome="/index.xhtml" value="SoftwareStore" styleClass="title" />
 
-	<h:panelGroup rendered="#{empty login.currentUserName}"
+	<h:panelGroup rendered="#{empty userAction.currentUserName}"
 		styleClass="headermenu">
 		<h:link outcome="/content/user/signin.xhtml" value="Sign in" />
 		<h:link outcome="/content/user/login.xhtml" value="Log in" />
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{not empty login.currentUserName}"
-		styleClass="headermenu">
+	<h:panelGroup rendered="#{not empty userAction.currentUserName}"
+	    styleClass="headermenu">
 		<h:form>
 			<h:link outcome="/content/user/profile.xhtml"
-				value="#{login.currentUserName}" style="font-weight: bold;" />
+				value="#{userAction.currentUserName}" style="font-weight: bold;" />
 			<h:link outcome="/content/cart/cart.xhtml" value="Cart" />
-			<h:commandLink action="#{login.logout()}" value="Log out" />
+			<h:commandLink action="#{userAction.logout()}" value="Log out" />
 		</h:form>
 	</h:panelGroup>
 

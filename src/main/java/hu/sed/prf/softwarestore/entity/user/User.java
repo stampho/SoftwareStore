@@ -16,7 +16,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = { "email" }))
+@Table(name = "user", uniqueConstraints = {
+		@UniqueConstraint(name = "unique_name", columnNames = { "name" }),
+		@UniqueConstraint(name = "unique_email", columnNames = { "email" }) })
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -8091600730565788663L;
@@ -54,10 +56,15 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(String name, String email) {
+	public User(String name, String email, String realName, String password) {
 		super();
 		this.name = name;
 		this.email = email;
+		this.realName = realName;
+		this.password = password;
+
+		this.role = Role.CUSTOMER;
+		this.registrationDate = new Date();
 	}
 
 	public Long getId() {

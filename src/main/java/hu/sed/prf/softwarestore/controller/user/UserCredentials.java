@@ -8,6 +8,9 @@ import javax.inject.Named;
 public class UserCredentials {
 	private String username;
 	private String password;
+	private String confirmPassword;
+	private String email;
+	private String realname;
 
 	public String getUsername() {
 		return username;
@@ -24,4 +27,29 @@ public class UserCredentials {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
 }

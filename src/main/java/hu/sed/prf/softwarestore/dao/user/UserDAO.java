@@ -14,13 +14,16 @@ public class UserDAO extends AbstractGenericDAO<User, Long> {
 		super(User.class);
 	}
 
-	public String getPasswordForUsername(String name) {
+	public User getUserByName(String name) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("name", name));
-		User user = (User) criteria.uniqueResult();
-		if (user == null)
-			return null;
-
-		return user.getPassword();
+		return (User) criteria.uniqueResult();
 	}
+
+	public User getUserByEmail(String email) {
+		Criteria criteria = getSession().createCriteria(getPersistentClass());
+		criteria.add(Restrictions.eq("email", email));
+		return (User) criteria.uniqueResult();
+	}
+
 }

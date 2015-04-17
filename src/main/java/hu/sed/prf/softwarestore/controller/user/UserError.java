@@ -1,41 +1,63 @@
 package hu.sed.prf.softwarestore.controller.user;
 
+import java.util.EnumMap;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 @RequestScoped
 @Named
 public class UserError {
-	private String usernameError;
-	private String passwordError;
+	private enum ErrorType {
+		USERNAME, PASSWORD, CONFIRMPASSWORD, EMAIL;
+	}
+
+	private EnumMap<ErrorType, String> errors = new EnumMap<ErrorType, String>(
+			ErrorType.class);
 
 	public String getUsernameError() {
-		return usernameError;
+		return this.errors.get(ErrorType.USERNAME);
 	}
 
 	public void setUsernameError(String usernameError) {
-		this.usernameError = usernameError;
+		this.errors.put(ErrorType.USERNAME, usernameError);
 	}
 
 	public String getPasswordError() {
-		return passwordError;
+		return this.errors.get(ErrorType.PASSWORD);
 	}
 
 	public void setPasswordError(String passwordError) {
-		this.passwordError = passwordError;
+		this.errors.put(ErrorType.PASSWORD, passwordError);
+	}
+
+	public String getConfirmPasswordError() {
+		return this.errors.get(ErrorType.CONFIRMPASSWORD);
+	}
+
+	public void setConfirmPasswordError(String confirmPasswordError) {
+		this.errors.put(ErrorType.CONFIRMPASSWORD, confirmPasswordError);
+	}
+
+	public String getEmailError() {
+		return this.errors.get(ErrorType.EMAIL);
+	}
+
+	public void setEmailError(String emailError) {
+		this.errors.put(ErrorType.EMAIL, emailError);
 	}
 
 	public boolean hasError() {
-		if (this.usernameError != null)
-			return true;
-		if (this.passwordError != null)
-			return true;
+		for (ErrorType errorType : ErrorType.values()) {
+			if (!this.errors.get(errorType).isEmpty())
+				return true;
+		}
 
 		return false;
 	}
 
 	public void reset() {
-		this.usernameError = null;
-		this.passwordError = null;
+		for (ErrorType errorType : ErrorType.values())
+			this.errors.put(errorType, "");
 	}
 }
