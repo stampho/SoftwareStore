@@ -59,6 +59,14 @@
         <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
 
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -198,6 +206,12 @@
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-core</artifactId>
+        </dependency>
+
+        <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>4.0</version>
         </dependency>
     </dependencies>
 
