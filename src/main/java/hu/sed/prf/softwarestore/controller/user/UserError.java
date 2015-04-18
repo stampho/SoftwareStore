@@ -49,6 +49,9 @@ public class UserError {
 
 	public boolean hasError() {
 		for (ErrorType errorType : ErrorType.values()) {
+			if (this.errors.get(errorType) == null)
+				continue;
+
 			if (!this.errors.get(errorType).isEmpty())
 				return true;
 		}

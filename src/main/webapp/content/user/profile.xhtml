@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    template="/templates/default.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
 
-    <ui:define name="content">
-        <h2>User Profile</h2>
-    </ui:define>
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{userAction.fillCredentials()}" />
+	</f:metadata>
+
+	<ui:define name="content">
+		<h2>User Profile</h2>
+
+		<h:form id="userChangeForm">
+			<h3>Change Profile</h3>
+
+			<h:panelGrid columns="3">
+				<h:outputLabel for="username">Username:</h:outputLabel>
+				<h:inputText id="username" value="#{userCredentials.username}" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}"
+					styleClass="error" />
+
+				<h:outputLabel for="email">Email:</h:outputLabel>
+				<h:inputText id="email" value="#{userCredentials.email}" />
+				<h:outputText id="emailError" value="#{userError.emailError}"
+					styleClass="error" />
+
+				<h:outputLabel for="realname">Realname:</h:outputLabel>
+				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<h:outputText value="" />
+
+				<h:outputLabel for="password">Password:</h:outputLabel>
+				<h:inputSecret id="password" value="#{userCredentials.password}" />
+				<h:outputText id="passwordError" value="#{userError.passwordError}"
+					styleClass="error" />
+
+				<h:outputLabel for="confirmPassword">Confirm Password:</h:outputLabel>
+				<h:inputSecret id="confirmPassword"
+					value="#{userCredentials.confirmPassword}" />
+				<h:outputText id="confirmPasswordError"
+					value="#{userError.confirmPasswordError}" styleClass="error" />
+			</h:panelGrid>
+
+			<h:commandButton value="Save" action="#{userAction.save()}" />
+			<h:commandButton value="Delete User" action="#{userAction.delete()}" />
+			<h:commandButton value="Reset" action="#{userAction.fillCredentials()}" />
+		</h:form>
+
+		<h:form id="userProductsForm">
+			<h3>Products</h3>
+		</h:form>
+
+		<h:form id="userSalesForm">
+			<h3>Sales</h3>
+		</h:form>
+
+		<h:button value="Back to Main Page" outcome="/index.xhtml" />
+
+	</ui:define>
 </ui:composition>
