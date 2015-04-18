@@ -9,20 +9,62 @@
 	<f:metadata>
 		<f:event type="preRenderView"
 			listener="#{productCategoryDataModel.load()}" />
+		<f:event type="preRenderView"
+			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories)}" />
 	</f:metadata>
 
 	<ui:define name="content">
-	   <h2>Categories</h2>
-
 		<h:form id="categorySelectorForm">
-			<p:selectManyCheckbox id="categorySelector" value="#{productCategorySelector.selectedCategories}" layout="grid" columns="3" styleClass="categorySelector">
+			<p:selectManyCheckbox id="categorySelector"
+				value="#{productCategorySelector.selectedCategories}" layout="grid"
+				columns="3" styleClass="categorySelector"
+				converter="javax.faces.Long">
 				<f:selectItems value="#{productCategoryDataModel.list}"
-					var="category" itemLabel="#{category.name}" itemValue="#{category.id}" />
+					var="category" itemLabel="#{category.name}"
+					itemValue="#{category.id}" />
 			</p:selectManyCheckbox>
 
-			<h:commandButton value="Filter" />
-			<h:commandButton action="#{productCategorySelector.selectAll()}" value="Select All" />
-			<h:commandButton action="#{productCategorySelector.selectNone()}" value="Select None" />
+			<h:commandButton action="#{productCategorySelector.filter()}"
+				value="Filter" />
+			<h:commandButton action="#{productCategorySelector.selectAll()}"
+				value="Select All" />
+			<h:commandButton action="#{productCategorySelector.selectNone()}"
+				value="Select None" />
 		</h:form>
+
+		<h:form id="productListForm">
+			<div>
+				<h:outputText value="no products"
+					rendered="#{empty productDataModel.list}" />
+			</div>
+
+			<h:dataTable id="productTable" value="#{productDataModel.list}"
+				var="product" rendered="#{not empty productDataModel.list}"
+				styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Category</f:facet>
+					<h:outputText value="#{product.category}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Product</f:facet>
+					<h:outputText value="#{product}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{product.price}" />
+				</h:column>
+
+				<h:column>
+					<h:commandButton
+						disabled="#{empty loggedInUser.user or loggedInUser.administrator}"
+						value="Add to Cart" />
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
 	</ui:define>
 </ui:composition>

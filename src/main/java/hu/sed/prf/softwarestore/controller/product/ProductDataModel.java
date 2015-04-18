@@ -31,7 +31,7 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		return productDAO;
 	}
 
-	public void load(String username) {
+	public void loadByUsername(String username) {
 		List<Sale> userSales = saleDAO.getSalesByUsername(username);
 		List<Product> userProducts = new ArrayList<Product>();
 
@@ -39,6 +39,20 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 			userProducts.addAll(sale.getProducts());
 
 		setList(userProducts);
+	}
+
+	public void loadByCategories(List<Long> categories) {
+		List<Product> filteredProducts = new ArrayList<Product>();
+
+		if (categories == null || categories.isEmpty()) {
+			setList(filteredProducts);
+			return;
+		}
+
+		for (Long categoryId : categories)
+			filteredProducts.addAll(productDAO.getProductsByCategoryId(categoryId));
+
+		setList(filteredProducts);
 	}
 
 }

@@ -25,7 +25,7 @@ public class SaleDataModel extends AbstractDataModel<Sale, Long> {
 		return saleDAO;
 	}
 
-	public void load(String username) {
+	public void loadByUsername(String username) {
 		List<Sale> userSales = saleDAO.getSalesByUsername(username);
 		setList(userSales);
 	}

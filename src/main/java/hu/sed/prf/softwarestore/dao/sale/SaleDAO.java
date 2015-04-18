@@ -19,7 +19,8 @@ public class SaleDAO extends AbstractGenericDAO<Sale, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Sale> getSalesByUsername(String username) {
 		Criteria saleCriteria = getSession().createCriteria(getPersistentClass());
-		Criteria userCriteria = saleCriteria.createCriteria("user").add(Restrictions.eq("name", username));
+		Criteria userCriteria = saleCriteria.createCriteria("user");
+		userCriteria.add(Restrictions.eq("name", username));
 		return userCriteria.list();
 	}
 
