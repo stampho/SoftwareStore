@@ -1,5 +1,7 @@
 package hu.sed.prf.softwarestore.controller.sale;
 
+import java.util.List;
+
 import hu.sed.prf.softwarestore.controller.core.AbstractDataModel;
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.dao.sale.SaleDAO;
@@ -21,6 +23,11 @@ public class SaleDataModel extends AbstractDataModel<Sale, Long> {
 	@Override
 	protected AbstractGenericDAO<Sale, Long> getEntityDao() {
 		return saleDAO;
+	}
+
+	public void load(String username) {
+		List<Sale> userSales = saleDAO.getSalesByUsername(username);
+		setList(userSales);
 	}
 
 }

@@ -8,6 +8,10 @@
 	<f:metadata>
 		<f:event type="preRenderView"
 			listener="#{userAction.fillCredentials()}" />
+		<f:event type="preRenderView"
+			listener="#{productDataModel.load(userAction.currentUserName)}" />
+		<f:event type="preRenderView"
+			listener="#{saleDataModel.load(userAction.currentUserName)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -45,15 +49,91 @@
 
 			<h:commandButton value="Save" action="#{userAction.save()}" />
 			<h:commandButton value="Delete User" action="#{userAction.delete()}" />
-			<h:commandButton value="Reset" action="#{userAction.fillCredentials()}" />
+			<h:commandButton value="Reset"
+				action="#{userAction.fillCredentials()}" />
+		</h:form>
+
+		<h:form id="userDataForm">
+			<h3>User Data</h3>
+			<h:panelGrid columns="2">
+				<h:outputText value="Registration Date:" />
+				<h:outputText
+					value="#{userDataModel.getUserByName(userAction.currentUserName).registrationDate}">
+					<f:convertDateTime type="both" />
+				</h:outputText>
+				<h:outputText value="Last Login:" />
+				<h:outputText value="TODO" />
+				<h:outputText value="Role:" />
+				<h:outputText
+					value="#{userDataModel.getUserByName(userAction.currentUserName).role}" />
+			</h:panelGrid>
 		</h:form>
 
 		<h:form id="userProductsForm">
 			<h3>Products</h3>
+
+			<div>
+				<h:outputText value="no products"
+					rendered="#{empty productDataModel.list}" />
+			</div>
+
+			<h:dataTable id="productTable" value="#{productDataModel.list}"
+				var="product" rendered="#{not empty productDataModel.list}"
+				styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:link value="#{product}" outcome="/content/user/profile.xhtml" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Product Key</f:facet>
+					<h:outputText value="XXXX-YYYY-ZZZZ" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Download Link</f:facet>
+					<h:link value="Download" outcome="/content/user/profile.xhtml" />
+				</h:column>
+
+			</h:dataTable>
 		</h:form>
 
 		<h:form id="userSalesForm">
 			<h3>Sales</h3>
+
+			<div>
+				<h:outputText value="no sales"
+					rendered="#{empty saleDataModel.list}" />
+			</div>
+
+			<h:dataTable id="saleTable" value="#{saleDataModel.list}" var="sale"
+				rendered="#{not empty saleDataModel.list}"
+				styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Products</f:facet>
+					<h:outputText value="#{sale.products}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Payment</f:facet>
+					<h:outputText value="#{sale.payment}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Sale Date</f:facet>
+					<h:outputText value="#{sale.saleDate}">
+						<f:convertDateTime type="both" />
+					</h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Comment</f:facet>
+					<h:outputText value="#{sale.comment}" />
+				</h:column>
+
+			</h:dataTable>
 		</h:form>
 
 		<h:button value="Back to Main Page" outcome="/index.xhtml" />
