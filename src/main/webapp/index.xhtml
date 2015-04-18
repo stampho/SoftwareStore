@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="/templates/default.xhtml">
 
 	<f:metadata>
@@ -14,6 +15,19 @@
 	</f:metadata>
 
 	<ui:define name="content">
+	   <h2>Categories</h2>
+
+		<h:form id="categorySelectorForm">
+			<p:selectManyCheckbox id="categorySelector" value="#{productCategorySelector.selectedCategories}" layout="grid" columns="3" styleClass="categorySelector">
+				<f:selectItems value="#{productCategoryDataModel.list}"
+					var="category" itemLabel="#{category.name}" itemValue="#{category.id}" />
+			</p:selectManyCheckbox>
+
+			<h:commandButton value="Filter" />
+			<h:commandButton action="#{productCategorySelector.selectAll()}" value="Select All" />
+			<h:commandButton action="#{productCategorySelector.selectNone()}" value="Select None" />
+		</h:form>
+
 		<h2>Tables</h2>
 		<h:form id="userListForm">
 			<h3>Users</h3>

@@ -62,6 +62,16 @@ body {
 	position: absolute;
 }
 
+.categorySelector {
+	width: 840px;
+}
+
+.categorySelector label {
+	text-align: left;
+	width: 100px;
+	font-weight: normal;
+}
+
 #content {
     float: left;
     width: 800px;
