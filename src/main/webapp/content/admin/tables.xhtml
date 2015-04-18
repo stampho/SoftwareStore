@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/default.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userDataModel.load()}" />
+        <f:event type="preRenderView"
+            listener="#{productCategoryDataModel.load()}" />
+        <f:event type="preRenderView" listener="#{productDataModel.load()}" />
+        <f:event type="preRenderView" listener="#{saleDataModel.load()}" />
+    </f:metadata>
+
+    <ui:define name="content">
+        <h2>Tables</h2>
+        <h:form id="userListForm">
+            <h3>Users</h3>
+
+            <div>
+                <h:outputText value="no users"
+                    rendered="#{empty userDataModel.list}" />
+            </div>
+
+            <h:dataTable id="userTable" value="#{userDataModel.list}" var="user"
+                rendered="#{not empty userDataModel.list}"
+                styleClass="simpletablestyle">
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{user.name}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">E-mail</f:facet>
+                    <h:outputText value="#{user.email}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Real Name</f:facet>
+                    <h:outputText value="#{user.realName}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Administrator (role)</f:facet>
+                    <h:outputText value="#{user.role}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Registration</f:facet>
+                    <h:outputText value="#{user.registrationDate}">
+                        <f:convertDateTime type="both" />
+                    </h:outputText>
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+        <h:form id="categoryListForm">
+            <h3>Categories</h3>
+
+            <div>
+                <h:outputText value="no categories"
+                    rendered="#{empty productCategoryDataModel.list}" />
+            </div>
+
+            <h:dataTable id="categoryTable"
+                value="#{productCategoryDataModel.list}" var="category"
+                rendered="#{not empty productCategoryDataModel.list}"
+                styleClass="simpletablestyle">
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{category.name}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{category.description}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+        <h:form id="productListForm">
+            <h3>Products</h3>
+
+            <div>
+                <h:outputText value="no products"
+                    rendered="#{empty productDataModel.list}" />
+            </div>
+
+            <h:dataTable id="productTable" value="#{productDataModel.list}"
+                var="product" rendered="#{not empty productDataModel.list}"
+                styleClass="simpletablestyle">
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{product.name}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Version</f:facet>
+                    <h:outputText value="#{product.version}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Release Date</f:facet>
+                    <h:outputText value="#{product.releaseDate}">
+                        <f:convertDateTime type="date" />
+                    </h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Company</f:facet>
+                    <h:outputText value="#{product.company}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    <h:outputText value="#{product.category}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    <h:outputText value="#{product.price}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{product.description}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+        <h:form id="saleListForm">
+            <h3>Sales</h3>
+
+            <div>
+                <h:outputText value="no sales"
+                    rendered="#{empty saleDataModel.list}" />
+            </div>
+
+            <h:dataTable id="saleTable" value="#{saleDataModel.list}" var="sale"
+                rendered="#{not empty saleDataModel.list}"
+                styleClass="simpletablestyle">
+
+                <h:column>
+                    <f:facet name="header">User</f:facet>
+                    <h:outputText value="#{sale.user}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Products</f:facet>
+                    <h:outputText value="#{sale.products}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Payment</f:facet>
+                    <h:outputText value="#{sale.payment}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Sale Date</f:facet>
+                    <h:outputText value="#{sale.saleDate}">
+                        <f:convertDateTime type="both" />
+                    </h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Comment</f:facet>
+                    <h:outputText value="#{sale.comment}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

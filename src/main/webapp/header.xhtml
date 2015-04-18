@@ -17,7 +17,8 @@
 		<h:form>
 			<h:link outcome="/content/user/profile.xhtml"
 				value="#{loggedInUser.user.name}" style="font-weight: bold;" />
-			<h:link outcome="/content/cart/cart.xhtml" value="Cart" />
+			<h:link rendered="#{!loggedInUser.administrator}" outcome="/content/cart/cart.xhtml" value="Cart" />
+			<h:link rendered="#{loggedInUser.administrator}" outcome="/content/admin/tables.xhtml" value="Manage Tables" />
 			<h:commandLink action="#{userAction.logout()}" value="Log out" />
 		</h:form>
 	</h:panelGroup>

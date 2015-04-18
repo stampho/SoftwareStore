@@ -1,5 +1,6 @@
 package hu.sed.prf.softwarestore.controller.user;
 
+import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
@@ -21,6 +22,13 @@ public class LoggedInUser implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isAdministrator() {
+		if (this.user == null)
+			return false;
+
+		return this.user.getRole() == Role.ADMINISTRATOR;
 	}
 
 }
