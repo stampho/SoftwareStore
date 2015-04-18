@@ -23,8 +23,4 @@ public class UserDataModel extends AbstractDataModel<User, Long> {
 		return userDAO;
 	}
 
-	public User getUserByName(String username) {
-		return userDAO.getUserByName(username);
-	}
-
 }

@@ -9,9 +9,9 @@
 		<f:event type="preRenderView"
 			listener="#{userAction.fillCredentials()}" />
 		<f:event type="preRenderView"
-			listener="#{productDataModel.load(userAction.currentUserName)}" />
+			listener="#{productDataModel.load(loggedInUser.user.name)}" />
 		<f:event type="preRenderView"
-			listener="#{saleDataModel.load(userAction.currentUserName)}" />
+			listener="#{saleDataModel.load(loggedInUser.user.name)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -58,14 +58,14 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="Registration Date:" />
 				<h:outputText
-					value="#{userDataModel.getUserByName(userAction.currentUserName).registrationDate}">
+					value="#{loggedInUser.user.registrationDate}">
 					<f:convertDateTime type="both" />
 				</h:outputText>
 				<h:outputText value="Last Login:" />
 				<h:outputText value="TODO" />
 				<h:outputText value="Role:" />
 				<h:outputText
-					value="#{userDataModel.getUserByName(userAction.currentUserName).role}" />
+					value="#{loggedInUser.user.role}" />
 			</h:panelGrid>
 		</h:form>
 

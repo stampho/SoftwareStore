@@ -5,11 +5,11 @@ import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@SessionScoped
+@ViewScoped
 @Named
 public class UserAction implements Serializable {
 
@@ -24,29 +24,32 @@ public class UserAction implements Serializable {
 	@Inject
 	private UserDAO userDAO;
 
-	private String currentUsername;
+	@Inject
+	private LoggedInUser loggedInUser;
 
 	public String login() {
 		String username = credentials.getUsername();
 		String password = credentials.getPassword();
 
+		User currentUser = userDAO.getUserByName(username);
+
 		error.reset();
 
 		if (username.isEmpty())
 			error.setUsernameError("Username is missing");
-		else if (userDAO.getUserByName(username) == null)
+		else if (currentUser == null)
 			error.setUsernameError("User '" + username + "' does not exist");
 
 		if (password.isEmpty())
 			error.setPasswordError("Password is missing");
-		else if (!password
-				.equals(userDAO.getUserByName(username).getPassword()))
+		else if (currentUser != null
+				&& !password.equals(currentUser.getPassword()))
 			error.setPasswordError("Invalid Password");
 
 		if (error.hasError())
 			return "";
 
-		setCurrentUserName(username);
+		this.loggedInUser.setUser(currentUser);
 		error.reset();
 		return "/index.xhtml?faces-redirect=true";
 	}
@@ -90,16 +93,14 @@ public class UserAction implements Serializable {
 	}
 
 	public String logout() {
-		setCurrentUserName(null);
+		this.loggedInUser.setUser(null);
 		error.reset();
 		return "/index.xhtml?faces-redirect=true";
 	}
 
 	public String fillCredentials() {
-		if (this.currentUsername == null || this.currentUsername.isEmpty())
-			return "/index.xhtml?faces-redirect=true";
+		User currentUser = this.loggedInUser.getUser();
 
-		User currentUser = userDAO.getUserByName(this.currentUsername);
 		if (currentUser == null)
 			return "/index.xhtml?faces-redirect=true";
 
@@ -114,10 +115,8 @@ public class UserAction implements Serializable {
 	}
 
 	public String save() {
-		if (this.currentUsername == null || this.currentUsername.isEmpty())
-			return "/index.xhtml?faces-redirect=true";
+		User currentUser = this.loggedInUser.getUser();
 
-		User currentUser = userDAO.getUserByName(this.currentUsername);
 		if (currentUser == null)
 			return "/index.xhtml?faces-redirect=true";
 
@@ -130,7 +129,7 @@ public class UserAction implements Serializable {
 		String confirmPassword = credentials.getConfirmPassword();
 
 		boolean isUsernameChanged = !username.isEmpty()
-				&& !username.equals(currentUsername);
+				&& !username.equals(currentUser.getName());
 		boolean isEmailChanged = !email.isEmpty()
 				&& !email.equals(currentUser.getEmail());
 		boolean isRealnameChanged = !realname.isEmpty()
@@ -170,7 +169,8 @@ public class UserAction implements Serializable {
 				|| isPasswordChanged) {
 			userDAO.update(currentUser);
 			userDAO.flush();
-			this.currentUsername = currentUser.getName();
+
+			this.loggedInUser.setUser(currentUser);
 
 			// TODO(pvarga): Print message when update was successful
 		}
@@ -181,14 +181,6 @@ public class UserAction implements Serializable {
 	// TODO(pvarga): Implement this!
 	public String delete() {
 		return "";
-	}
-
-	public String getCurrentUserName() {
-		return currentUsername;
-	}
-
-	public void setCurrentUserName(String currentUserName) {
-		this.currentUsername = currentUserName;
 	}
 
 }
