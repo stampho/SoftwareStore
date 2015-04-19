@@ -23,4 +23,11 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 		categoryCriteria.add(Restrictions.eq("id", categoryId));
 		return categoryCriteria.list();
 	}
+
+	// TODO(pvarga): move this to abstract class -> getEntityById(Long entityId)
+	public Product getProductById(Long productId) {
+		Criteria criteria = getSession().createCriteria(getPersistentClass());
+		criteria.add(Restrictions.eq("id", productId));
+		return (Product) criteria.uniqueResult();
+	}
 }

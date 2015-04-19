@@ -58,9 +58,14 @@
 				</h:column>
 
 				<h:column>
-					<h:commandButton
+					<h:commandButton action="#{cart.add(product.id)}"
+						rendered="#{!cart.has(product.id)}"
 						disabled="#{empty loggedInUser.user or loggedInUser.administrator}"
 						value="Add to Cart" />
+					<h:commandButton action="#{cart.remove(product.id)}"
+						rendered="#{cart.has(product.id)}"
+						disabled="#{empty loggedInUser.user or loggedInUser.administrator}"
+						value="Remove from Cart" />
 				</h:column>
 
 			</h:dataTable>

@@ -50,12 +50,18 @@ public class Sale implements Serializable {
 	public Sale() {
 	}
 
-	public Sale(User user, List<Product> products, Long payment, Date saleDate) {
+	public Sale(User user, List<Product> products) {
 		super();
 		this.user = user;
 		this.products = products;
-		this.payment = payment;
-		this.saleDate = saleDate;
+
+		Long sum = 0L;
+		for (Product product : products) {
+			sum += product.getPrice();
+		}
+
+		this.payment = sum;
+		this.saleDate = new Date();
 	}
 
 	public Long getId() {

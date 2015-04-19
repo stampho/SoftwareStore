@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    template="/templates/default.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
 
-    <ui:define name="content">
-        <h2>Cart</h2>
-    </ui:define>
+	<ui:define name="content">
+		<h2>Cart</h2>
+
+		<h:form id="cartForm">
+			<div>
+				<h:outputText value="Cart is empty" rendered="#{cart.isEmpty()}" />
+			</div>
+
+			<h:dataTable id="productTable" value="#{cart.list()}" var="product"
+				rendered="#{!cart.isEmpty()}" styleClass="simpletablestyle">
+
+				<h:column>
+					<f:facet name="header">Category</f:facet>
+					<h:outputText value="#{product.category}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Product</f:facet>
+					<h:outputText value="#{product}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{product.price}" />
+				</h:column>
+
+				<h:column>
+					<h:commandButton action="#{cart.remove(product.id)}"
+						rendered="#{cart.has(product.id)}" value="Remove" />
+				</h:column>
+			</h:dataTable>
+
+			<h:commandButton action="#{cart.buy()}" value="Buy" />
+			<h:commandButton action="#{cart.reset()}" value="Reset" />
+			<h:button outcome="/index.xhtml" value="Back to the Store" />
+		</h:form>
+	</ui:define>
 </ui:composition>
