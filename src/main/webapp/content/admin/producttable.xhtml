@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{productDataModel.load()}" />
+	</f:metadata>
+
+	<h:form id="productListForm">
+		<div>
+			<h:outputText value="no products"
+				rendered="#{empty productDataModel.list}" />
+		</div>
+
+		<h:dataTable id="productTable" value="#{productDataModel.list}"
+			var="product" rendered="#{not empty productDataModel.list}"
+			styleClass="simpletablestyle">
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{product.name}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Version</f:facet>
+				<h:outputText value="#{product.version}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Release Date</f:facet>
+				<h:outputText value="#{product.releaseDate}">
+					<f:convertDateTime type="date" />
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Company</f:facet>
+				<h:outputText value="#{product.company}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{product.category}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Price</f:facet>
+				<h:outputText value="#{product.price}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+				<h:outputText value="#{product.description}" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+</ui:composition>

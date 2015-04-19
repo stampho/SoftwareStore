@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{productCategoryDataModel.load()}" />
+	</f:metadata>
+
+	<h:form id="categoryListForm">
+		<div>
+			<h:outputText value="no categories"
+				rendered="#{empty productCategoryDataModel.list}" />
+		</div>
+
+		<h:dataTable id="categoryTable"
+			value="#{productCategoryDataModel.list}" var="category"
+			rendered="#{not empty productCategoryDataModel.list}"
+			styleClass="simpletablestyle">
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{category.name}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+				<h:outputText value="#{category.description}" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+</ui:composition>

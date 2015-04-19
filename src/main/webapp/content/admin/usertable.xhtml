@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{userDataModel.load()}" />
+	</f:metadata>
+
+	<h:form id="userListForm">
+		<div>
+			<h:outputText value="no users" rendered="#{empty userDataModel.list}" />
+		</div>
+
+		<h:dataTable id="userTable" value="#{userDataModel.list}" var="user"
+			rendered="#{not empty userDataModel.list}"
+			styleClass="simpletablestyle">
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{user.name}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">E-mail</f:facet>
+				<h:outputText value="#{user.email}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Real Name</f:facet>
+				<h:outputText value="#{user.realName}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Role</f:facet>
+				<h:outputText value="#{user.role}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Registration</f:facet>
+				<h:outputText value="#{user.registrationDate}">
+					<f:convertDateTime type="both" />
+				</h:outputText>
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+</ui:composition>
