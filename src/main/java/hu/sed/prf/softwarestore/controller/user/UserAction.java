@@ -63,23 +63,28 @@ public class UserAction implements Serializable {
 
 		error.reset();
 
-		if (username.isEmpty())
-			error.setUsernameError("Username is missing");
+		String patternUserNamePassword = "^(?=.{6})(?!.{11})(?=.*[a-zA-Z0-9])(?=.*[a-z]){1,}(?=.*[A-Z]){1,}(?=.*\\d){1,}[a-zA-Z\\d]+$";
+		String patternEmail = "^[\\w\\.-]+@[\\w\\.-]+\\.[\\w]{2,3}$";
+		String patternRealName = "^(?!.{31})[a-zA-Z ]*$";
+
+		if (!username.matches(patternUserNamePassword) || username.isEmpty())
+			error.setUsernameError("Username should contain min 6 characters,  max 10 characters, at least 1 lowercase letter, 1 uppercase letter and 1 number.");
 		else if (userDAO.getUserByName(username) != null)
 			error.setUsernameError("Username is already in use");
 
-		// TODO(pvarga): Check valid email
-		if (email.isEmpty())
-			error.setEmailError("Email is missing");
+		if (!email.matches(patternEmail) || email.isEmpty())
+			error.setEmailError("Email is invalid or missing");
 		else if (userDAO.getUserByEmail(email) != null)
 			error.setEmailError("Email is already in use");
 
-		// TODO(pvarga): Check valid password
-		if (password.isEmpty())
-			error.setPasswordError("Password is missing");
+		if (!password.matches(patternUserNamePassword) || password.isEmpty())
+			error.setPasswordError("Password should contain min 6 characters,  max 10 characters, at least 1 lowercase letter, 1 uppercase letter and 1 number.");
 
 		if (!confirmPassword.equals(password))
 			error.setConfirmPasswordError("Confirm password does not match");
+
+		if (!realname.matches(patternRealName))
+			error.setRealNameError("Real Name is too long or incorret.");
 
 		if (error.hasError())
 			return "";

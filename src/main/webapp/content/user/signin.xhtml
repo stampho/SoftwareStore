@@ -10,28 +10,36 @@
 
 		<h:form id="loginform">
 			<h:panelGrid columns="3">
-				<h:outputLabel for="username">Username:</h:outputLabel>
+				<h:outputLabel for="username">Username*:</h:outputLabel>
 				<h:inputText id="username" value="#{userCredentials.username}" />
-				<h:outputText id="usernameError" value="#{userError.usernameError}" styleClass="error" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}"
+					styleClass="error" />
 
-				<h:outputLabel for="email">Email:</h:outputLabel>
+				<h:outputLabel for="email">Email*:</h:outputLabel>
 				<h:inputText id="email" value="#{userCredentials.email}" />
-				<h:outputText id="emailError" value="#{userError.emailError}" styleClass="error" />
+				<h:outputText id="emailError" value="#{userError.emailError}"
+					styleClass="error" />
 
 				<h:outputLabel for="realname">Realname:</h:outputLabel>
-                <h:inputText id="realname" value="#{userCredentials.realname}" />
-                <h:outputText value="" />
+				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<h:outputText id="realNameError" value="#{userError.realNameError}"
+					styleClass="error" />
 
-				<h:outputLabel for="password">Password:</h:outputLabel>
+				<h:outputLabel for="password">Password*:</h:outputLabel>
 				<h:inputSecret id="password" value="#{userCredentials.password}" />
-				<h:outputText id="passwordError" value="#{userError.passwordError}" styleClass="error" />
+				<h:outputText id="passwordError" value="#{userError.passwordError}"
+					styleClass="error" />
 
-				<h:outputLabel for="confirmPassword">Confirm Password:</h:outputLabel>
-				<h:inputSecret id="confirmPassword" value="#{userCredentials.confirmPassword}" />
-				<h:outputText id="confirmPasswordError" value="#{userError.confirmPasswordError}" styleClass="error" />
+				<h:outputLabel for="confirmPassword">Confirm Password*:</h:outputLabel>
+				<h:inputSecret id="confirmPassword"
+					value="#{userCredentials.confirmPassword}" />
+				<h:outputText id="confirmPasswordError"
+					value="#{userError.confirmPasswordError}" styleClass="error" />
+
 			</h:panelGrid>
 			<h:commandButton value="Sign in" action="#{userAction.signin()}" />
 			<h:button value="Cancel" outcome="/index.xhtml" />
+			<h:outputLabel for="confirmPassword">* required fields</h:outputLabel>
 		</h:form>
 	</ui:define>
 </ui:composition>

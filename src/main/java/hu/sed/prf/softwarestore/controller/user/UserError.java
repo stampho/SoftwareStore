@@ -9,7 +9,7 @@ import javax.inject.Named;
 @Named
 public class UserError {
 	private enum ErrorType {
-		USERNAME, PASSWORD, CONFIRMPASSWORD, EMAIL;
+		USERNAME, PASSWORD, CONFIRMPASSWORD, EMAIL, REALNAME;
 	}
 
 	private EnumMap<ErrorType, String> errors = new EnumMap<ErrorType, String>(
@@ -29,6 +29,14 @@ public class UserError {
 
 	public void setPasswordError(String passwordError) {
 		this.errors.put(ErrorType.PASSWORD, passwordError);
+	}
+
+	public String getRealNameError() {
+		return this.errors.get(ErrorType.REALNAME);
+	}
+
+	public void setRealNameError(String realNameError) {
+		this.errors.put(ErrorType.REALNAME, realNameError);
 	}
 
 	public String getConfirmPasswordError() {
