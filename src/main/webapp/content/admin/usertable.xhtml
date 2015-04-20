@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 	<f:metadata>
 		<f:event type="preRenderView" listener="#{userDataModel.load()}" />
@@ -44,6 +45,45 @@
 				</h:outputText>
 			</h:column>
 
+			<h:column>
+				<p:commandButton value="Change"
+					action="#{userAction.fillCredentials(user)}"
+					onclick="PF('changeDialog').show();" />
+			</h:column>
+
+			<h:column>
+				<p:commandButton value="Delete" />
+			</h:column>
+
 		</h:dataTable>
 	</h:form>
+
+	<p:dialog header="Change User Entry" widgetVar="changeDialog"
+		modal="true" minHeight="100">
+		<h:form id="userChangeForm">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="username">Username:</h:outputLabel>
+				<h:inputText id="username" value="#{userCredentials.username}" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}"
+					styleClass="error" />
+
+				<h:outputLabel for="email">Email:</h:outputLabel>
+				<h:inputText id="email" value="#{userCredentials.email}" />
+				<h:outputText id="emailError" value="#{userError.emailError}"
+					styleClass="error" />
+
+				<h:outputLabel for="realname">Realname:</h:outputLabel>
+				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<h:outputText value="" />
+
+				<h:outputLabel for="password">Password:</h:outputLabel>
+				<p:commandButton value="Reset Password" />
+				<h:outputText value="" />
+
+			</h:panelGrid>
+
+			<p:commandButton value="Save" action="#{userAction.save()}" />
+			<p:commandButton value="Cancel" onclick="changeDialog.hide()" />
+		</h:form>
+	</p:dialog>
 </ui:composition>

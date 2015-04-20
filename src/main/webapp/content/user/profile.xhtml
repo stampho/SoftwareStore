@@ -7,7 +7,7 @@
 
 	<f:metadata>
 		<f:event type="preRenderView"
-			listener="#{userAction.fillCredentials()}" />
+			listener="#{userAction.fillCredentials(loggedInUser.user)}" />
 		<f:event type="preRenderView"
 			listener="#{productDataModel.loadByUsername(loggedInUser.user.name)}" />
 		<f:event type="preRenderView"
