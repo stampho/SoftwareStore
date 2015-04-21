@@ -60,8 +60,8 @@
 		</h:dataTable>
 	</h:form>
 
-	<p:dialog header="Change User Entry" widgetVar="changeDialog" id="changeDialog"
-		modal="true" minHeight="100">
+	<p:dialog header="Change User Entry" widgetVar="changeDialog"
+		id="changeDialog" modal="true" minHeight="100">
 		<h:form id="userChangeForm">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="username">Username:</h:outputLabel>
@@ -78,13 +78,20 @@
 				<h:inputText id="realname" value="#{userCredentials.realname}" />
 				<h:outputText value="" />
 
+				<h:outputLabel for="role">Role:</h:outputLabel>
+				<h:selectOneMenu value="#{userCredentials.role}">
+					<f:selectItems value="#{userDataModel.roles}" />
+				</h:selectOneMenu>
+				<h:outputText value="" />
+
 				<h:outputLabel for="password">Password:</h:outputLabel>
 				<p:commandButton value="Reset Password" />
 				<h:outputText value="" />
 
 			</h:panelGrid>
 
-			<p:commandButton value="Save" action="#{userAction.fillCredentials(loggedInUser.user)}" />
+			<p:commandButton value="Save"
+				action="#{userAction.fillCredentials(loggedInUser.user)}" />
 			<p:commandButton value="Cancel" onclick="changeDialog.hide()" />
 		</h:form>
 	</p:dialog>

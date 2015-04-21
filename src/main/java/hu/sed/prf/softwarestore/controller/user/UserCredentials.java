@@ -1,5 +1,7 @@
 package hu.sed.prf.softwarestore.controller.user;
 
+import hu.sed.prf.softwarestore.entity.user.Role;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -11,6 +13,7 @@ public class UserCredentials {
 	private String confirmPassword;
 	private String email;
 	private String realname;
+	private Role role;
 
 	public String getUsername() {
 		return username;
@@ -50,6 +53,14 @@ public class UserCredentials {
 
 	public void setRealname(String realname) {
 		this.realname = realname;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }

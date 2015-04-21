@@ -1,13 +1,14 @@
 package hu.sed.prf.softwarestore.controller.user;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import hu.sed.prf.softwarestore.controller.core.AbstractDataModel;
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.dao.user.UserDAO;
+import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named
 @ViewScoped
@@ -23,4 +24,7 @@ public class UserDataModel extends AbstractDataModel<User, Long> {
 		return userDAO;
 	}
 
+	public Role[] getRoles() {
+		return Role.values();
+	}
 }

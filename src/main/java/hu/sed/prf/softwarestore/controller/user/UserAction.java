@@ -114,6 +114,7 @@ public class UserAction implements Serializable {
 		this.credentials.setUsername(user.getName());
 		this.credentials.setEmail(user.getEmail());
 		this.credentials.setRealname(user.getRealName());
+		this.credentials.setRole(user.getRole());
 
 		return "";
 	}
