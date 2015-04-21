@@ -108,14 +108,12 @@ public class UserAction implements Serializable {
 		if (user == null)
 			return "/index.xhtml?faces-redirect=true";
 
-		System.err.println("!!! FILL: " + user.getName());
-
 		if (error.hasError())
 			return "";
 
-		credentials.setUsername(user.getName());
-		credentials.setEmail(user.getEmail());
-		credentials.setRealname(user.getRealName());
+		this.credentials.setUsername(user.getName());
+		this.credentials.setEmail(user.getEmail());
+		this.credentials.setRealname(user.getRealName());
 
 		return "";
 	}
@@ -185,7 +183,7 @@ public class UserAction implements Serializable {
 	}
 
 	// TODO(pvarga): Implement this!
-	public String delete() {
+	public String delete(User user) {
 		return "";
 	}
 

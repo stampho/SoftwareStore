@@ -48,17 +48,19 @@
 			<h:column>
 				<p:commandButton value="Change"
 					action="#{userAction.fillCredentials(user)}"
-					onclick="PF('changeDialog').show();" />
+					update=":tabview:changeDialog"
+					oncomplete="PF('changeDialog').show();" />
 			</h:column>
 
 			<h:column>
-				<p:commandButton value="Delete" />
+				<p:commandButton value="Delete" type="submit" ajax="false"
+					action="#{userAction.delete(user)}" />
 			</h:column>
 
 		</h:dataTable>
 	</h:form>
 
-	<p:dialog header="Change User Entry" widgetVar="changeDialog"
+	<p:dialog header="Change User Entry" widgetVar="changeDialog" id="changeDialog"
 		modal="true" minHeight="100">
 		<h:form id="userChangeForm">
 			<h:panelGrid columns="3">
@@ -82,7 +84,7 @@
 
 			</h:panelGrid>
 
-			<p:commandButton value="Save" action="#{userAction.save()}" />
+			<p:commandButton value="Save" action="#{userAction.fillCredentials(loggedInUser.user)}" />
 			<p:commandButton value="Cancel" onclick="changeDialog.hide()" />
 		</h:form>
 	</p:dialog>
