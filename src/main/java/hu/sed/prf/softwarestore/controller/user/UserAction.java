@@ -105,22 +105,6 @@ public class UserAction implements Serializable {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	// TODO(pvarga): Move this to UserCredentials.java
-	public String fillCredentials(User user) {
-		if (user == null)
-			return "/index.xhtml?faces-redirect=true";
-
-		if (error.hasError())
-			return "";
-
-		this.credentials.setUsername(user.getName());
-		this.credentials.setEmail(user.getEmail());
-		this.credentials.setRealname(user.getRealName());
-		this.credentials.setRole(user.getRole());
-
-		return "";
-	}
-
 	public String save() {
 		User currentUser = this.loggedInUser.getUser();
 

@@ -1,6 +1,7 @@
 package hu.sed.prf.softwarestore.controller.user;
 
 import hu.sed.prf.softwarestore.entity.user.Role;
+import hu.sed.prf.softwarestore.entity.user.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -61,6 +62,18 @@ public class UserCredentials {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String fill(User user) {
+		if (user == null)
+			return "/index.xhtml?faces-redirect=true";
+
+		this.setUsername(user.getName());
+		this.setEmail(user.getEmail());
+		this.setRealname(user.getRealName());
+		this.setRole(user.getRole());
+
+		return "";
 	}
 
 }

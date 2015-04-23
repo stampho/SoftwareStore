@@ -7,7 +7,7 @@
 
 	<f:metadata>
 		<f:event type="preRenderView"
-			listener="#{userAction.fillCredentials(loggedInUser.user)}" />
+			listener="#{userCredentials.fill(loggedInUser.user)}" />
 		<f:event type="preRenderView"
 			listener="#{productDataModel.loadByUsername(loggedInUser.user.name)}" />
 		<f:event type="preRenderView"
@@ -50,7 +50,7 @@
 			<h:commandButton value="Save" action="#{userAction.save()}" />
 			<h:commandButton value="Delete User" action="#{userAction.delete()}" />
 			<h:commandButton value="Reset"
-				action="#{userAction.fillCredentials()}" />
+				action="#{userCredentials.fill(loggedInUser.user)}" />
 		</h:form>
 
 		<h:form id="userDataForm">

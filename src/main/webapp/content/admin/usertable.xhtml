@@ -47,7 +47,7 @@
 
 			<h:column>
 				<p:commandButton value="Change"
-					action="#{userAction.fillCredentials(user)}"
+					action="#{userCredentials.fill(user)}"
 					update=":tabview:changeDialog"
 					oncomplete="PF('changeDialog').show();" />
 			</h:column>
@@ -91,7 +91,7 @@
 			</h:panelGrid>
 
 			<p:commandButton value="Save"
-				action="#{userAction.fillCredentials(loggedInUser.user)}" />
+				action="#{userCredentials.fill(loggedInUser.user)}" />
 			<p:commandButton value="Cancel" onclick="changeDialog.hide()" />
 		</h:form>
 	</p:dialog>
