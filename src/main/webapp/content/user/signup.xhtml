@@ -6,9 +6,9 @@
 	template="/templates/default.xhtml">
 
 	<ui:define name="content">
-		<h2>Sign in</h2>
+		<h2>Sign up</h2>
 
-		<h:form id="loginform">
+		<h:form id="signupform">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="username">Username*:</h:outputLabel>
 				<h:inputText id="username" value="#{userCredentials.username}" />
@@ -37,7 +37,7 @@
 					value="#{userError.confirmPasswordError}" styleClass="error" />
 
 			</h:panelGrid>
-			<h:commandButton value="Sign in" action="#{userAction.signin()}" />
+			<h:commandButton value="Sign up" action="#{userAction.signup()}" />
 			<h:button value="Cancel" outcome="/index.xhtml" />
 			<h:outputLabel for="confirmPassword">* required fields</h:outputLabel>
 		</h:form>

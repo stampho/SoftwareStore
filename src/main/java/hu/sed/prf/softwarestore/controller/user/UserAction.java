@@ -54,7 +54,9 @@ public class UserAction implements Serializable {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	public String signin() {
+	// TODO(pvarga): signups should use save()
+	// TODO(pvarga): validation should go to save function
+	public String signup() {
 		String username = credentials.getUsername();
 		String email = credentials.getEmail();
 		String realname = credentials.getRealname();
@@ -63,12 +65,12 @@ public class UserAction implements Serializable {
 
 		error.reset();
 
-		String patternUserNamePassword = "^(?=.{6})(?!.{11})(?=.*[a-zA-Z0-9])(?=.*[a-z]){1,}(?=.*[A-Z]){1,}(?=.*\\d){1,}[a-zA-Z\\d]+$";
+		String patternPassword = "^(?=.{6})(?!.{11})(?=.*[a-zA-Z0-9])(?=.*[a-z]){1,}(?=.*[A-Z]){1,}(?=.*\\d){1,}[a-zA-Z\\d]+$";
 		String patternEmail = "^[\\w\\.-]+@[\\w\\.-]+\\.[\\w]{2,3}$";
 		String patternRealName = "^(?!.{31})[a-zA-Z ]*$";
 
-		if (!username.matches(patternUserNamePassword) || username.isEmpty())
-			error.setUsernameError("Username should contain min 6 characters,  max 10 characters, at least 1 lowercase letter, 1 uppercase letter and 1 number.");
+		if (username.isEmpty())
+			error.setUsernameError("Username is invalid or missing");
 		else if (userDAO.getUserByName(username) != null)
 			error.setUsernameError("Username is already in use");
 
@@ -77,7 +79,7 @@ public class UserAction implements Serializable {
 		else if (userDAO.getUserByEmail(email) != null)
 			error.setEmailError("Email is already in use");
 
-		if (!password.matches(patternUserNamePassword) || password.isEmpty())
+		if (!password.matches(patternPassword) || password.isEmpty())
 			error.setPasswordError("Password should contain min 6 characters,  max 10 characters, at least 1 lowercase letter, 1 uppercase letter and 1 number.");
 
 		if (!confirmPassword.equals(password))
