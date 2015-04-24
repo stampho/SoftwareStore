@@ -9,6 +9,8 @@ import javax.inject.Named;
 @RequestScoped
 @Named
 public class UserCredentials {
+	private String originalUsername;
+
 	private String username;
 	private String password;
 	private String confirmPassword;
@@ -64,9 +66,19 @@ public class UserCredentials {
 		this.role = role;
 	}
 
+	public String getOriginalUsername() {
+		return originalUsername;
+	}
+
+	public void setOriginalUsername(String originalUsername) {
+		this.originalUsername = originalUsername;
+	}
+
 	public String fill(User user) {
 		if (user == null)
 			return "/index.xhtml?faces-redirect=true";
+
+		this.setOriginalUsername(user.getName());
 
 		this.setUsername(user.getName());
 		this.setEmail(user.getEmail());

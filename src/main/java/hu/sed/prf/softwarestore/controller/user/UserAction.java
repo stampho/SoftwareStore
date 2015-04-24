@@ -1,6 +1,7 @@
 package hu.sed.prf.softwarestore.controller.user;
 
 import hu.sed.prf.softwarestore.dao.user.UserDAO;
+import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
@@ -105,11 +106,13 @@ public class UserAction implements Serializable {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	public String save() {
-		User currentUser = this.loggedInUser.getUser();
+	public void save(String originalUsername) {
+		// Username is passed in parameter as a workaround. Primefaces dialog doesn't
+		// really work with User.
+		User user = this.userDAO.getUserByName(originalUsername);
 
-		if (currentUser == null)
-			return "/index.xhtml?faces-redirect=true";
+		if (user == null)
+			return;
 
 		error.reset();
 
@@ -118,15 +121,19 @@ public class UserAction implements Serializable {
 		String realname = credentials.getRealname();
 		String password = credentials.getPassword();
 		String confirmPassword = credentials.getConfirmPassword();
+		Role role = credentials.getRole();
 
+		// Empty input fields should not change the corresponding user properties
 		boolean isUsernameChanged = !username.isEmpty()
-				&& !username.equals(currentUser.getName());
+				&& !username.equals(user.getName());
 		boolean isEmailChanged = !email.isEmpty()
-				&& !email.equals(currentUser.getEmail());
+				&& !email.equals(user.getEmail());
 		boolean isRealnameChanged = !realname.isEmpty()
-				&& !realname.equals(currentUser.getRealName());
-		boolean isPasswordChanged = !password.isEmpty()
-				|| !confirmPassword.isEmpty();
+				&& !realname.equals(user.getRealName());
+		boolean isPasswordChanged = !(password == null || password.isEmpty())
+				|| !(confirmPassword == null || confirmPassword.isEmpty());
+		boolean isRoleChanged = role != null
+				&& !role.equals(user.getRole());
 
 		if (isUsernameChanged && userDAO.getUserByName(username) != null)
 			error.setUsernameError("Username is already in use");
@@ -140,33 +147,46 @@ public class UserAction implements Serializable {
 			error.setConfirmPasswordError("Confirm password does not match");
 
 		if (error.hasError())
-			return "";
+			return;
 
 		// TODO(pvarga): Ask password to perform the change
 
 		if (isUsernameChanged)
-			currentUser.setName(username);
+			user.setName(username);
 
 		if (isEmailChanged)
-			currentUser.setEmail(email);
+			user.setEmail(email);
 
 		if (isRealnameChanged)
-			currentUser.setRealName(realname);
+			user.setRealName(realname);
 
 		if (isPasswordChanged)
-			currentUser.setPassword(password);
+			user.setPassword(password);
+
+		if (isRoleChanged)
+			user.setRole(role);
 
 		if (isUsernameChanged || isEmailChanged || isRealnameChanged
-				|| isPasswordChanged) {
-			userDAO.update(currentUser);
+				|| isPasswordChanged || isRoleChanged) {
+			userDAO.update(user);
 			userDAO.flush();
 
-			this.loggedInUser.setUser(currentUser);
+			if (this.loggedInUser != null && this.loggedInUser.equals(user))
+				this.loggedInUser.setUser(user);
 
-			// TODO(pvarga): Print message when update was successful
+			// TODO(pvarga): Raise message when update was successful
 		}
 
-		return "";
+		return;
+	}
+
+	public void resetPassword(User user) {
+		if (user == null)
+			return;
+
+		user.setPassword(user.getName());
+		userDAO.update(user);
+		userDAO.flush();
 	}
 
 	// TODO(pvarga): Implement this!
