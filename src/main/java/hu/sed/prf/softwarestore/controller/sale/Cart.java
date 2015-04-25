@@ -57,7 +57,7 @@ public class Cart implements Serializable {
 	public List<Product> list() {
 		List<Product> products = new ArrayList<Product>();
 		for (Long productId : this.container) {
-			Product product = this.productDAO.getProductById(productId);
+			Product product = this.productDAO.findEntity(productId);
 			products.add(product);
 		}
 		return products;

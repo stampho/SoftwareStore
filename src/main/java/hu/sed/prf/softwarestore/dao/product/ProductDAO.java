@@ -2,6 +2,7 @@ package hu.sed.prf.softwarestore.dao.product;
 
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.entity.product.Product;
+import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 
 import java.util.List;
 
@@ -17,17 +18,9 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> getProductsByCategoryId(Long categoryId) {
-		Criteria productCriteria = getSession().createCriteria(getPersistentClass());
-		Criteria categoryCriteria = productCriteria.createCriteria("category");
-		categoryCriteria.add(Restrictions.eq("id", categoryId));
-		return categoryCriteria.list();
-	}
-
-	// TODO(pvarga): move this to abstract class -> getEntityById(Long entityId)
-	public Product getProductById(Long productId) {
+	public List<Product> findByCategory(ProductCategory category) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
-		criteria.add(Restrictions.eq("id", productId));
-		return (Product) criteria.uniqueResult();
+		criteria.add(Restrictions.eq("category", category));
+		return criteria.list();
 	}
 }

@@ -2,10 +2,13 @@ package hu.sed.prf.softwarestore.controller.product;
 
 import hu.sed.prf.softwarestore.controller.core.AbstractDataModel;
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
+import hu.sed.prf.softwarestore.dao.product.ProductCategoryDAO;
 import hu.sed.prf.softwarestore.dao.product.ProductDAO;
 import hu.sed.prf.softwarestore.dao.sale.SaleDAO;
 import hu.sed.prf.softwarestore.entity.product.Product;
+import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 import hu.sed.prf.softwarestore.entity.sale.Sale;
+import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,9 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 	private ProductDAO productDAO;
 
 	@Inject
+	private ProductCategoryDAO productCategoryDAO;
+
+	@Inject
 	private SaleDAO saleDAO;
 
 	@Override
@@ -31,8 +37,8 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		return productDAO;
 	}
 
-	public void loadByUsername(String username) {
-		List<Sale> userSales = saleDAO.getSalesByUsername(username);
+	public void loadByUser(User user) {
+		List<Sale> userSales = saleDAO.findByUser(user);
 		List<Product> userProducts = new ArrayList<Product>();
 
 		for (Sale sale : userSales)
@@ -49,8 +55,10 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 			return;
 		}
 
-		for (Long categoryId : categories)
-			filteredProducts.addAll(productDAO.getProductsByCategoryId(categoryId));
+		for (Long categoryId : categories) {
+			ProductCategory category = productCategoryDAO.findEntity(categoryId);
+			filteredProducts.addAll(productDAO.findByCategory(category));
+		}
 
 		setList(filteredProducts);
 	}

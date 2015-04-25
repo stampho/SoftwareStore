@@ -256,7 +256,7 @@ public class UserAction implements Serializable {
 		else
 			result = "";
 
-		saleDAO.deleteByUserId(userId);
+		saleDAO.deleteByUser(user);
 
 		userDAO.delete(user);
 		userDAO.flush();

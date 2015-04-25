@@ -2,6 +2,7 @@ package hu.sed.prf.softwarestore.dao.sale;
 
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.entity.sale.Sale;
+import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.util.List;
 
@@ -17,20 +18,15 @@ public class SaleDAO extends AbstractGenericDAO<Sale, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Sale> getSalesByUsername(String username) {
-		Criteria saleCriteria = getSession().createCriteria(getPersistentClass());
-		Criteria userCriteria = saleCriteria.createCriteria("user");
-		userCriteria.add(Restrictions.eq("name", username));
-		return userCriteria.list();
+	public List<Sale> findByUser(User user) {
+		Criteria criteria = getSession().createCriteria(getPersistentClass());
+		criteria.add(Restrictions.eq("user", user));
+		return criteria.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	public void deleteByUserId(Long userId) {
-		Criteria saleCriteria = getSession().createCriteria(getPersistentClass());
-		Criteria userCriteria = saleCriteria.createCriteria("user");
-		userCriteria.add(Restrictions.eq("id", userId));
-
-		for (Sale sale : (List<Sale>)userCriteria.list())
+	public void deleteByUser(User user) {
+		List<Sale> saleList = findByUser(user);
+		for (Sale sale : saleList)
 			delete(sale);
 
 		flush();

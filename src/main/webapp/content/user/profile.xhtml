@@ -9,9 +9,9 @@
 		<f:event type="preRenderView"
 			listener="#{userCredentials.fill(loggedInUser.user)}" />
 		<f:event type="preRenderView"
-			listener="#{productDataModel.loadByUsername(loggedInUser.user.name)}" />
+			listener="#{productDataModel.loadByUser(loggedInUser.user)}" />
 		<f:event type="preRenderView"
-			listener="#{saleDataModel.loadByUsername(loggedInUser.user.name)}" />
+			listener="#{saleDataModel.loadByUser(loggedInUser.user)}" />
 	</f:metadata>
 
 	<ui:define name="content">
