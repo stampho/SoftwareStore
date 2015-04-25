@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 	<f:metadata>
 		<f:event type="preRenderView"
@@ -30,6 +31,43 @@
 				<h:outputText value="#{category.description}" />
 			</h:column>
 
+			<h:column>
+				<p:commandButton value="Change"
+					action="#{productCategoryAction.loadById(category.id)}"
+					update=":tabview:changeCategoryDialog"
+					oncomplete="PF('changeCategoryDialog').show();">
+				</p:commandButton>
+            </h:column>
+
+			<h:column>
+				<p:commandButton value="Delete" type="submit" ajax="false" disabled="true"
+					action="#{productCategoryAction.delete(category.id)}" />
+			</h:column>
+
 		</h:dataTable>
 	</h:form>
+
+	<p:dialog header="Change ProductCategory Entry"
+		widgetVar="changeCategoryDialog" id="changeCategoryDialog"
+		modal="true" minHeight="100">
+		<h:form id="changeCategoryForm">
+		<h:panelGrid columns="3">
+			<h:outputLabel for="name">Name:</h:outputLabel>
+			<p:inputText id="name" value="#{productCategoryAction.entity.name}" />
+			<h:outputText value="" />
+
+			<h:outputLabel for="description">Description:</h:outputLabel>
+			<p:inputTextarea id="description"
+				value="#{productCategoryAction.entity.description}" rows="5"
+				cols="30" counter="display" maxlength="255"
+				counterTemplate="{0} characters remaining." autoResize="false" />
+			<h:outputText id="display" />
+
+			<p:commandButton value="Save"
+				action="#{productCategoryAction.persist()}" ajax="false" />
+			<p:commandButton value="Cancel" type="button" onclick="PF('changeCategoryDialog').hide();" />
+	       </h:panelGrid>
+		</h:form>
+	</p:dialog>
+
 </ui:composition>

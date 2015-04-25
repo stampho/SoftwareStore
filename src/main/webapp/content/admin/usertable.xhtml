@@ -111,7 +111,8 @@
 			<p:commandButton value="Save"
 				action="#{userAction.save(userCredentials.originalUsername)}"
 				ajax="false" />
-			<p:commandButton value="Cancel" onclick="changeUserDialog.hide()" />
+			<p:commandButton value="Cancel" type="button"
+				onclick="PF('changeUserDialog').hide();" />
 		</h:form>
 	</p:dialog>
 
@@ -141,7 +142,8 @@
 
 			<p:commandButton value="Add" action="#{userAction.create()}"
 				ajax="false" />
-			<p:commandButton value="Cancel" onclick="addUserDialog.hide()" />
+			<p:commandButton value="Cancel" type="button"
+				onclick="PF('addUserDialog').hide();" />
 		</h:form>
 	</p:dialog>
 </ui:composition>
