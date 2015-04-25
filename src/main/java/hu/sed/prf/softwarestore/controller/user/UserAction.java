@@ -5,6 +5,7 @@ import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -122,6 +123,7 @@ public class UserAction implements Serializable {
 		String password = credentials.getPassword();
 		String confirmPassword = credentials.getConfirmPassword();
 		Role role = credentials.getRole();
+		Date registrationDate = credentials.getRegistrationDate();
 
 		// Empty input fields should not change the corresponding user properties
 		boolean isUsernameChanged = !username.isEmpty()
@@ -134,6 +136,8 @@ public class UserAction implements Serializable {
 				|| !(confirmPassword == null || confirmPassword.isEmpty());
 		boolean isRoleChanged = role != null
 				&& !role.equals(user.getRole());
+		boolean isRegistrationDateChanged = registrationDate != null
+				&& !registrationDate.equals(user.getRegistrationDate());
 
 		if (isUsernameChanged && userDAO.getUserByName(username) != null)
 			error.setUsernameError("Username is already in use");
@@ -166,8 +170,11 @@ public class UserAction implements Serializable {
 		if (isRoleChanged)
 			user.setRole(role);
 
+		if (isRegistrationDateChanged)
+			user.setRegistrationDate(registrationDate);
+
 		if (isUsernameChanged || isEmailChanged || isRealnameChanged
-				|| isPasswordChanged || isRoleChanged) {
+				|| isPasswordChanged || isRoleChanged || isRegistrationDateChanged) {
 			userDAO.update(user);
 			userDAO.flush();
 

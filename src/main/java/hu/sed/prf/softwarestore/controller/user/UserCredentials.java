@@ -3,6 +3,8 @@ package hu.sed.prf.softwarestore.controller.user;
 import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
 
+import java.util.Date;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -17,6 +19,7 @@ public class UserCredentials {
 	private String email;
 	private String realname;
 	private Role role;
+	private Date registrationDate;
 
 	public String getUsername() {
 		return username;
@@ -66,6 +69,14 @@ public class UserCredentials {
 		this.role = role;
 	}
 
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
 	public String getOriginalUsername() {
 		return originalUsername;
 	}
@@ -84,6 +95,7 @@ public class UserCredentials {
 		this.setEmail(user.getEmail());
 		this.setRealname(user.getRealName());
 		this.setRole(user.getRole());
+		this.setRegistrationDate(user.getRegistrationDate());
 
 		return "";
 	}

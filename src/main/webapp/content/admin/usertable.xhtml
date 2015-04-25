@@ -93,11 +93,11 @@
 				</h:selectOneMenu>
 				<h:outputText value="" />
 
-				<ui:remove>
-					<h:outputLabel for="password">Password:</h:outputLabel>
-					<p:commandButton id="password" value="Reset Password" />
-					<h:outputText value="" />
-				</ui:remove>
+				<h:outputLabel for="date">Registration Date:</h:outputLabel>
+				<p:calendar id="date" value="#{userCredentials.registrationDate}"
+					pattern="MM-dd-yyyy HH:mm:ss" />
+				<h:outputText value="" />
+
 			</h:panelGrid>
 
 			<p:commandButton value="Save"
