@@ -63,7 +63,8 @@
 
 			<h:column>
 				<p:commandButton value="Delete" type="submit" ajax="false"
-					action="#{userAction.delete(user)}" />
+					action="#{userAction.delete(user.id)}"
+					disabled="#{not userAction.isDeletable(user)}" />
 			</h:column>
 
 		</h:dataTable>

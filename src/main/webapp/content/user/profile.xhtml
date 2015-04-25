@@ -48,7 +48,7 @@
 			</h:panelGrid>
 
 			<h:commandButton value="Save" action="#{userAction.save(loggedInUser.user.name)}" />
-			<h:commandButton value="Delete User" action="#{userAction.delete()}" />
+			<h:commandButton value="Delete" action="#{userAction.delete(loggedInUser.user.id)}" disabled="#{not userAction.isDeletable(loggedInUser.user)}" />
 			<h:commandButton value="Reset"
 				action="#{userCredentials.fill(loggedInUser.user)}" />
 		</h:form>

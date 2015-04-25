@@ -24,4 +24,16 @@ public class SaleDAO extends AbstractGenericDAO<Sale, Long> {
 		return userCriteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public void deleteByUserId(Long userId) {
+		Criteria saleCriteria = getSession().createCriteria(getPersistentClass());
+		Criteria userCriteria = saleCriteria.createCriteria("user");
+		userCriteria.add(Restrictions.eq("id", userId));
+
+		for (Sale sale : (List<Sale>)userCriteria.list())
+			delete(sale);
+
+		flush();
+	}
+
 }

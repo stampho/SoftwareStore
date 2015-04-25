@@ -1,5 +1,6 @@
 package hu.sed.prf.softwarestore.controller.user;
 
+import hu.sed.prf.softwarestore.dao.sale.SaleDAO;
 import hu.sed.prf.softwarestore.dao.user.UserDAO;
 import hu.sed.prf.softwarestore.entity.user.Role;
 import hu.sed.prf.softwarestore.entity.user.User;
@@ -25,6 +26,9 @@ public class UserAction implements Serializable {
 
 	@Inject
 	private UserDAO userDAO;
+
+	@Inject
+	private SaleDAO saleDAO;
 
 	@Inject
 	private LoggedInUser loggedInUser;
@@ -224,9 +228,40 @@ public class UserAction implements Serializable {
 		userDAO.flush();
 	}
 
-	// TODO(pvarga): Implement this!
-	public String delete(User user) {
-		return "";
+	public boolean isDeletable(User user) {
+		User currentUser = loggedInUser.getUser();
+		if (user == null || currentUser == null)
+			return false;
+
+		if (currentUser.getRole() != Role.ADMINISTRATOR) {
+			// Non administrator can delete himself only
+			return (currentUser.equals(user));
+		}
+
+		// Administrator can delete anybody but himself
+		return (!currentUser.equals(user));
+	}
+
+	public String delete(Long userId) {
+		String result = "/index.xhtml?faces-redirect=true";
+		User user = userDAO.findEntity(userId);
+		if (user == null)
+			return result;
+
+		if (!isDeletable(user))
+			return result;
+
+		if (user.equals(loggedInUser.getUser()))
+			logout();
+		else
+			result = "";
+
+		saleDAO.deleteByUserId(userId);
+
+		userDAO.delete(user);
+		userDAO.flush();
+
+		return result;
 	}
 
 }
