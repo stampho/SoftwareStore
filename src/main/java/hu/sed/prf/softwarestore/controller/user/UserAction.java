@@ -183,8 +183,6 @@ public class UserAction implements Serializable {
 
 			// TODO(pvarga): Raise message when update was successful
 		}
-
-		return;
 	}
 
 	public void resetPassword(User user) {
@@ -193,6 +191,36 @@ public class UserAction implements Serializable {
 
 		user.setPassword(user.getName());
 		userDAO.update(user);
+		userDAO.flush();
+	}
+
+	public void create() {
+		error.reset();
+
+		String username = credentials.getUsername();
+		String email = credentials.getEmail();
+		String realname = credentials.getRealname();
+		Role role = credentials.getRole();
+
+		User newUser = new User(username, email, realname, username);
+		newUser.setRole(role);
+
+		if (username.isEmpty())
+			error.setUsernameError("Username is invalid or missing");
+		else if (userDAO.getUserByName(username) != null)
+			error.setUsernameError("Username is already in use");
+
+		if (email.isEmpty())
+			error.setEmailError("Email is missing");
+		else if (userDAO.getUserByEmail(email) != null)
+			error.setEmailError("Email is already in use");
+
+		// FIXME(pvarga): Error is not shown since return close the
+		// addUserDialog (admin/usertable.xhtml)
+		if (error.hasError())
+			return;
+
+		userDAO.save(newUser);
 		userDAO.flush();
 	}
 

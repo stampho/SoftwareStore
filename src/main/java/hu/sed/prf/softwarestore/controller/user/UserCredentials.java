@@ -100,4 +100,13 @@ public class UserCredentials {
 		return "";
 	}
 
+	public void reset() {
+		this.setOriginalUsername(null);
+
+		this.setUsername("");
+		this.setEmail("");
+		this.setRealname("");
+		this.setRole(Role.CUSTOMER);
+	}
+
 }

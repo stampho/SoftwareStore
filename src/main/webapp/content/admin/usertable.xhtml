@@ -39,9 +39,12 @@
 			</h:column>
 
 			<h:column>
-			    <f:facet name="header">Password</f:facet>
-			    <h:commandButton value="Reset" action="#{userAction.resetPassword(user)}" rendered="#{user.name != user.password}" />
-			    <h:outputText value="#{user.password}" rendered="#{user.name == user.password}" />
+				<f:facet name="header">Password</f:facet>
+				<h:commandButton value="Reset"
+					action="#{userAction.resetPassword(user)}"
+					rendered="#{user.name != user.password}" />
+				<h:outputText value="#{user.password}"
+					rendered="#{user.name == user.password}" />
 			</h:column>
 
 			<h:column>
@@ -54,8 +57,8 @@
 			<h:column>
 				<p:commandButton value="Change"
 					action="#{userCredentials.fill(user)}"
-					update=":tabview:changeDialog"
-					oncomplete="PF('changeDialog').show();" />
+					update=":tabview:changeUserDialog"
+					oncomplete="PF('changeUserDialog').show();" />
 			</h:column>
 
 			<h:column>
@@ -64,11 +67,15 @@
 			</h:column>
 
 		</h:dataTable>
+
+		<p:commandButton value="Add User" action="#{userCredentials.reset()}"
+			update=":tabview:addUserDialog"
+			oncomplete="PF('addUserDialog').show();" />
 	</h:form>
 
-	<p:dialog header="Change User Entry" widgetVar="changeDialog"
-		id="changeDialog" modal="true" minHeight="100">
-		<h:form id="userChangeForm">
+	<p:dialog header="Change User Entry" widgetVar="changeUserDialog"
+		id="changeUserDialog" modal="true" minHeight="100">
+		<h:form id="changeUserForm">
 			<h:panelGrid columns="3">
 				<h:inputHidden id="origUsername"
 					value="#{userCredentials.originalUsername}" />
@@ -103,7 +110,37 @@
 			<p:commandButton value="Save"
 				action="#{userAction.save(userCredentials.originalUsername)}"
 				ajax="false" />
-			<p:commandButton value="Cancel" onclick="changeDialog.hide()" />
+			<p:commandButton value="Cancel" onclick="changeUserDialog.hide()" />
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="Add User Entry" widgetVar="addUserDialog"
+		id="addUserDialog" modal="true" minHeight="100">
+		<h:form id="addUserForm">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="username">Username:</h:outputLabel>
+				<h:inputText id="username" value="#{userCredentials.username}" />
+				<h:outputText id="usernameError" value="#{userError.usernameError}"
+					styleClass="error" />
+
+				<h:outputLabel for="email">Email:</h:outputLabel>
+				<h:inputText id="email" value="#{userCredentials.email}" />
+				<h:outputText id="emailError" value="#{userError.emailError}"
+					styleClass="error" />
+				<h:outputLabel for="realname">Realname:</h:outputLabel>
+				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<h:outputText value="" />
+
+				<h:outputLabel for="role">Role:</h:outputLabel>
+				<h:selectOneMenu id="role" value="#{userCredentials.role}">
+					<f:selectItems value="#{userDataModel.roles}" />
+				</h:selectOneMenu>
+				<h:outputText value="" />
+			</h:panelGrid>
+
+			<p:commandButton value="Add" action="#{userAction.create()}"
+				ajax="false" />
+			<p:commandButton value="Cancel" onclick="addUserDialog.hide()" />
 		</h:form>
 	</p:dialog>
 </ui:composition>
