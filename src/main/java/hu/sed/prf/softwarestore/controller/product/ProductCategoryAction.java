@@ -3,7 +3,11 @@ package hu.sed.prf.softwarestore.controller.product;
 import hu.sed.prf.softwarestore.controller.core.AbstractEntityAction;
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.dao.product.ProductCategoryDAO;
+import hu.sed.prf.softwarestore.dao.product.ProductDAO;
+import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.product.ProductCategory;
+
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -19,6 +23,12 @@ public class ProductCategoryAction extends
 	@Inject
 	ProductCategoryDAO productCategoryDAO;
 
+	@Inject
+	ProductDAO productDAO;
+
+	@Inject
+	ProductAction productAction;
+
 	public ProductCategoryAction() {
 		super(ProductCategory.class);
 	}
@@ -31,6 +41,13 @@ public class ProductCategoryAction extends
 	@Override
 	protected String getNavigationTargetAfterPersist() {
 		return "";
+	}
+
+	@Override
+	protected void beforeDeletion(ProductCategory entityToDelete) {
+		List<Product> productList = productDAO.findByCategory(entityToDelete);
+		for (Product product : productList)
+			productAction.delete(product.getId());
 	}
 
 }

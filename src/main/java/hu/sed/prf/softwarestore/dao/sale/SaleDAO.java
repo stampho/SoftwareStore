@@ -1,6 +1,7 @@
 package hu.sed.prf.softwarestore.dao.sale;
 
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
+import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.sale.Sale;
 import hu.sed.prf.softwarestore.entity.user.User;
 
@@ -32,4 +33,19 @@ public class SaleDAO extends AbstractGenericDAO<Sale, Long> {
 		flush();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Sale> findByProduct(Product product) {
+		Criteria criteria = getSession().createCriteria(getPersistentClass(), "sale");
+		criteria.createAlias("sale.products", "product");
+		criteria.add(Restrictions.eq("product.id", product.getId()));
+		return criteria.list();
+	}
+
+	public void deleteByProduct(Product product) {
+		List<Sale> saleList = findByProduct(product);
+		for (Sale sale : saleList)
+			delete(sale);
+
+		flush();
+	}
 }
