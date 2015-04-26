@@ -88,6 +88,7 @@ public abstract class AbstractEntityAction<EntityType, ID extends Serializable>
 
 	public void reset() {
 		this.entity = null;
+		setId(null);
 		load();
 	}
 
