@@ -45,7 +45,7 @@ public class ProductCategorySelector implements Serializable {
 	public void filter() {
 		return;
 	}
-
+	
 	public void selectAll() {
 		List<ProductCategory> categories = this.productCategoryDAO.list();
 		this.selectedCategories.clear();

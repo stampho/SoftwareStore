@@ -14,14 +14,23 @@
 	</f:metadata>
 
 	<ui:define name="content">
+	
+	 	<h:outputScript library="js" name="clearCache.js"  /> 
+
 		<h:form id="categorySelectorForm">
 			<p:selectManyCheckbox id="categorySelector"
 				value="#{productCategorySelector.selectedCategories}" layout="grid"
 				columns="3" styleClass="categorySelector"
 				converter="javax.faces.Long">
+				<f:ajax
+						event="change"
+						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories)}"
+						execute="@this"
+						render=":productListForm:productTable" />
 				<f:selectItems value="#{productCategoryDataModel.list}"
 					var="category" itemLabel="#{category.name}"
 					itemValue="#{category.id}" />
+					
 			</p:selectManyCheckbox>
 
 			<h:commandButton action="#{productCategorySelector.filter()}"
