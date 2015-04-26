@@ -51,22 +51,23 @@
 		widgetVar="changeCategoryDialog" id="changeCategoryDialog"
 		modal="true" minHeight="100">
 		<h:form id="changeCategoryForm">
-		<h:panelGrid columns="3">
-			<h:outputLabel for="name">Name:</h:outputLabel>
-			<p:inputText id="name" value="#{productCategoryAction.entity.name}" />
-			<h:outputText value="" />
+			<h:panelGrid columns="3">
+				<h:outputLabel for="name">Name:</h:outputLabel>
+				<p:inputText id="name" value="#{productCategoryAction.entity.name}" />
+				<h:outputText value="" />
 
-			<h:outputLabel for="description">Description:</h:outputLabel>
-			<p:inputTextarea id="description"
-				value="#{productCategoryAction.entity.description}" rows="5"
-				cols="30" counter="display" maxlength="255"
-				counterTemplate="{0} characters remaining." autoResize="false" />
-			<h:outputText id="display" />
+				<h:outputLabel for="description">Description:</h:outputLabel>
+				<p:inputTextarea id="description"
+					value="#{productCategoryAction.entity.description}" rows="5"
+					cols="30" counter="display" maxlength="255"
+					counterTemplate="{0} characters remaining." autoResize="false" />
+				<h:outputText id="display" />
+			</h:panelGrid>
 
 			<p:commandButton value="Save"
 				action="#{productCategoryAction.persist()}" ajax="false" />
-			<p:commandButton value="Cancel" type="button" onclick="PF('changeCategoryDialog').hide();" />
-	       </h:panelGrid>
+			<p:commandButton value="Cancel" type="button"
+				onclick="PF('changeCategoryDialog').hide();" />
 		</h:form>
 	</p:dialog>
 
