@@ -72,6 +72,10 @@ body {
 	font-weight: normal;
 }
 
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list-item {
+	display: table !important;
+}
+
 #content {
     float: left;
     width: 800px;
