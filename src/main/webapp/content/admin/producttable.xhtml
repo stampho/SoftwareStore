@@ -66,7 +66,7 @@
 
 			<h:column>
 				<p:commandButton value="Delete" type="submit" ajax="false"
-					disabled="true" action="#{productAction.delete(category.id)}" />
+					action="#{productAction.delete(product.id)}" />
 			</h:column>
 
 		</h:dataTable>
@@ -103,7 +103,7 @@
 				</p:selectOneMenu>
 				<h:outputText value="" />
 
-				<h:outputLabel for="price">Prices:</h:outputLabel>
+				<h:outputLabel for="price">Price:</h:outputLabel>
 				<p:spinner id="price" value="#{productAction.entity.price}" min="1" />
 				<h:outputText value="" />
 

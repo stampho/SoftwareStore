@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 	<f:metadata>
 		<f:event type="preRenderView" listener="#{saleDataModel.load()}" />
@@ -44,6 +45,64 @@
 				<h:outputText value="#{sale.comment}" />
 			</h:column>
 
+			<h:column>
+				<p:commandButton value="Change"
+					action="#{saleAction.loadById(sale.id)}"
+					update=":tabview:changeSaleDialog"
+					oncomplete="PF('changeSaleDialog').show();">
+				</p:commandButton>
+			</h:column>
+
+			<h:column>
+				<p:commandButton value="Delete" type="submit" ajax="false"
+					action="#{saleAction.delete(sale.id)}" />
+			</h:column>
 		</h:dataTable>
 	</h:form>
+
+	<p:dialog header="Change Sale Entry" widgetVar="changeSaleDialog"
+		id="changeSaleDialog" modal="true" minHeight="100">
+		<h:form id="changeSaleForm">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="userMenu">User:</h:outputLabel>
+				<p:selectOneMenu id="userMenu" value="#{saleAction.userId}"
+					converter="javax.faces.Long">
+					<f:selectItems value="#{userDataModel.list}" var="user"
+						itemLabel="#{user.toString()}" itemValue="#{user.id}" />
+				</p:selectOneMenu>
+				<h:outputText value="" />
+
+				<h:outputLabel for="productListMenu">Products:</h:outputLabel>
+				<p:selectCheckboxMenu id="productListMenu" label="Products"
+					filter="true" filterMatchMode="contains"
+					value="#{saleAction.productIdList}" converter="javax.faces.Long">
+					<f:selectItems value="#{productDataModel.list}" var="product"
+						itemLabel="#{product.toString()}" itemValue="#{product.id}" />
+				</p:selectCheckboxMenu>
+				<h:outputText value="" />
+
+				<h:outputLabel for="payment">Payment:</h:outputLabel>
+				<p:spinner id="payment" value="#{saleAction.entity.payment}" min="1" />
+				<h:outputText value="" />
+
+				<h:outputLabel for="date">Sale Date:</h:outputLabel>
+				<p:calendar id="date" value="#{saleAction.entity.saleDate}"
+					pattern="MM-dd-yyyy HH:mm:ss" />
+				<h:outputText value="" />
+
+
+				<h:outputLabel for="comment">Comment:</h:outputLabel>
+				<p:inputTextarea id="comment" value="#{saleAction.entity.comment}"
+					rows="5" cols="30" counter="display" maxlength="255"
+					counterTemplate="{0} characters remaining." autoResize="false" />
+				<h:outputText id="display" />
+			</h:panelGrid>
+
+			<p:commandButton value="Save" action="#{saleAction.persist()}"
+				ajax="false" />
+			<p:commandButton value="Cancel" type="button"
+				onclick="PF('changeSaleDialog').hide();" />
+		</h:form>
+	</p:dialog>
+
 </ui:composition>

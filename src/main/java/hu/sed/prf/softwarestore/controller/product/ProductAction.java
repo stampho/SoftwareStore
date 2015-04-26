@@ -4,6 +4,7 @@ import hu.sed.prf.softwarestore.controller.core.AbstractEntityAction;
 import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.dao.product.ProductCategoryDAO;
 import hu.sed.prf.softwarestore.dao.product.ProductDAO;
+import hu.sed.prf.softwarestore.dao.sale.SaleDAO;
 import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 
@@ -24,6 +25,9 @@ public class ProductAction extends AbstractEntityAction<Product, Long> {
 
 	@Inject
 	ProductCategoryDAO productCategoryDAO;
+
+	@Inject
+	SaleDAO saleDAO;
 
 	@Inject
 	Logger logger;
@@ -61,6 +65,11 @@ public class ProductAction extends AbstractEntityAction<Product, Long> {
 	public void setCategoryId(Long categoryId) {
 		ProductCategory category = productCategoryDAO.findEntity(categoryId);
 		getEntity().setCategory(category);
+	}
+
+	@Override
+	protected void beforeDeletion(Product entityToDelete) {
+		saleDAO.deleteByProduct(entityToDelete);
 	}
 
 }
