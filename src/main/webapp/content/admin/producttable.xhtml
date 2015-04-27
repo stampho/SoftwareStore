@@ -70,6 +70,11 @@
 			</h:column>
 
 		</h:dataTable>
+
+		<p:commandButton value="Add Product" action="#{productAction.reset()}"
+			update=":tabview:addProductDialog"
+			oncomplete="PF('addProductDialog').show();" />
+
 	</h:form>
 
 	<p:dialog header="Change Product Entry" widgetVar="changeProductDialog"
@@ -92,7 +97,6 @@
 				<h:outputLabel for="company">Company:</h:outputLabel>
 				<p:inputText id="company" value="#{productAction.entity.company}" />
 				<h:outputText value="" />
-
 
 				<h:outputLabel for="categoryMenu">Category:</h:outputLabel>
 				<p:selectOneMenu id="categoryMenu"
@@ -119,6 +123,55 @@
 				ajax="false" />
 			<p:commandButton value="Cancel" type="button"
 				onclick="PF('changeProductDialog').hide();" />
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="Add Product Entry" widgetVar="addProductDialog"
+		id="addProductDialog" modal="true" minHeight="100">
+		<h:form id="addProductForm">
+				<h:panelGrid columns="3">
+					<h:outputLabel for="name">Name:</h:outputLabel>
+					<p:inputText id="name" value="#{productAction.entity.name}" />
+					<h:outputText value="" />
+
+					<h:outputLabel for="version">Version:</h:outputLabel>
+					<p:inputText id="version" value="#{productAction.entity.version}" />
+					<h:outputText value="" />
+
+					<h:outputLabel for="date">Release Date:</h:outputLabel>
+					<p:calendar id="date" value="#{productAction.entity.releaseDate}"
+						pattern="MM-dd-yyyy" />
+					<h:outputText value="" />
+
+					<h:outputLabel for="company">Company:</h:outputLabel>
+					<p:inputText id="company" value="#{productAction.entity.company}" />
+					<h:outputText value="" />
+
+					<h:outputLabel for="categoryMenu">Category:</h:outputLabel>
+					<p:selectOneMenu id="categoryMenu"
+						value="#{productAction.categoryId}" converter="javax.faces.Long">
+						<f:selectItems value="#{productCategoryDataModel.list}"
+							var="category" itemLabel="#{category.name}"
+							itemValue="#{category.id}" />
+					</p:selectOneMenu>
+					<h:outputText value="" />
+
+					<h:outputLabel for="price">Price:</h:outputLabel>
+					<p:spinner id="price" value="#{productAction.entity.price}" min="1" />
+					<h:outputText value="" />
+
+					<h:outputLabel for="description">Description:</h:outputLabel>
+					<p:inputTextarea id="description"
+						value="#{productAction.entity.description}" rows="5" cols="30"
+						counter="display" maxlength="255"
+						counterTemplate="{0} characters remaining." autoResize="false" />
+					<h:outputText id="display" />
+				</h:panelGrid>
+
+				<p:commandButton value="Add" action="#{productAction.persist()}"
+					ajax="false" />
+				<p:commandButton value="Cancel" type="button"
+					onclick="PF('addProductDialog').hide();" />
 		</h:form>
 	</p:dialog>
 

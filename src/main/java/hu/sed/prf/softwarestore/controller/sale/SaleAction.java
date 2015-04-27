@@ -10,6 +10,7 @@ import hu.sed.prf.softwarestore.entity.sale.Sale;
 import hu.sed.prf.softwarestore.entity.user.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -77,6 +78,12 @@ public class SaleAction extends AbstractEntityAction<Sale, Long> {
 			return new ArrayList<Long>();
 		}
 
+		List<Product> products = sale.getProducts();
+		if (products == null) {
+			logger.warning("Product List is null");
+			return new ArrayList<Long>();
+		}
+
 		List<Long> productIdList = new ArrayList<Long>();
 		for (Product product : sale.getProducts()) {
 			if (product == null) {
@@ -97,6 +104,29 @@ public class SaleAction extends AbstractEntityAction<Sale, Long> {
 			productList.add(productDAO.findEntity(productId));
 
 		getEntity().setProducts(productList);
+	}
+
+	@Override
+	public String persist() {
+		Sale sale = getEntity();
+
+		sale.setSaleDate(new Date());
+
+		Long payment = 0L;
+		List<Product> products = sale.getProducts();
+		if (products == null) {
+			logger.warning("Product List is null");
+			return "";
+		}
+
+		for (Product product : sale.getProducts())
+			payment += product.getPrice();
+
+		sale.setPayment(payment);
+
+		getEntityDao().saveOrUpdate(sale);
+		getEntityDao().flush();
+		return getNavigationTargetAfterPersist();
 	}
 
 }

@@ -58,6 +58,11 @@
 					action="#{saleAction.delete(sale.id)}" />
 			</h:column>
 		</h:dataTable>
+
+		<p:commandButton value="Add Sale" action="#{saleAction.reset()}"
+			update=":tabview:addSaleDialog"
+			oncomplete="PF('addSaleDialog').show();" />
+
 	</h:form>
 
 	<p:dialog header="Change Sale Entry" widgetVar="changeSaleDialog"
@@ -90,7 +95,6 @@
 					pattern="MM-dd-yyyy HH:mm:ss" />
 				<h:outputText value="" />
 
-
 				<h:outputLabel for="comment">Comment:</h:outputLabel>
 				<p:inputTextarea id="comment" value="#{saleAction.entity.comment}"
 					rows="5" cols="30" counter="display" maxlength="255"
@@ -102,6 +106,41 @@
 				ajax="false" />
 			<p:commandButton value="Cancel" type="button"
 				onclick="PF('changeSaleDialog').hide();" />
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="Add Sale Entry" widgetVar="addSaleDialog"
+		id="addSaleDialog" modal="true" minHeight="100">
+		<h:form id="addSaleForm">
+			<h:panelGrid columns="3">
+				<h:outputLabel for="userMenu">User:</h:outputLabel>
+				<p:selectOneMenu id="userMenu" value="#{saleAction.userId}"
+					converter="javax.faces.Long">
+					<f:selectItems value="#{userDataModel.list}" var="user"
+						itemLabel="#{user.toString()}" itemValue="#{user.id}" />
+				</p:selectOneMenu>
+				<h:outputText value="" />
+
+				<h:outputLabel for="productListMenu">Products:</h:outputLabel>
+				<p:selectCheckboxMenu id="productListMenu" label="Products"
+					filter="true" filterMatchMode="contains"
+					value="#{saleAction.productIdList}" converter="javax.faces.Long">
+					<f:selectItems value="#{productDataModel.list}" var="product"
+						itemLabel="#{product.toString()}" itemValue="#{product.id}" />
+				</p:selectCheckboxMenu>
+				<h:outputText value="" />
+
+				<h:outputLabel for="comment">Comment:</h:outputLabel>
+				<p:inputTextarea id="comment" value="#{saleAction.entity.comment}"
+					rows="5" cols="30" counter="display" maxlength="255"
+					counterTemplate="{0} characters remaining." autoResize="false" />
+				<h:outputText id="display" />
+			</h:panelGrid>
+
+			<p:commandButton value="Save" action="#{saleAction.persist()}"
+				ajax="false" />
+			<p:commandButton value="Cancel" type="button"
+				onclick="PF('addSaleDialog').hide();" />
 		</h:form>
 	</p:dialog>
 
