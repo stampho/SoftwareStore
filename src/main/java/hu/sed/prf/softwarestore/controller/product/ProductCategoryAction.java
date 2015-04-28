@@ -45,7 +45,7 @@ public class ProductCategoryAction extends
 
 	@Override
 	protected void beforeDeletion(ProductCategory entityToDelete) {
-		List<Product> productList = productDAO.findByCategory(entityToDelete);
+		List<Product> productList = productDAO.findByCategoryAndFilterText(entityToDelete, "");
 		for (Product product : productList)
 			productAction.delete(product.getId());
 	}

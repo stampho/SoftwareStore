@@ -18,9 +18,18 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> findByCategory(ProductCategory category) {
+	public List<Product> findByCategoryAndFilterText(ProductCategory category, String filterText) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("category", category));
+		
+		if(filterText!= null && !"".equals(filterText)) {
+			criteria.add(Restrictions.or(
+				Restrictions.ilike("name", "%" + filterText + "%"),
+				Restrictions.ilike("version", "%" + filterText + "%"),
+				Restrictions.ilike("company", "%" + filterText + "%"),
+				Restrictions.ilike("description", "%" + filterText + "%")));
+
+		}
 		return criteria.list();
 	}
 }

@@ -10,7 +10,7 @@
 		<f:event type="preRenderView"
 			listener="#{productCategoryDataModel.load()}" />
 		<f:event type="preRenderView"
-			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories)}" />
+			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories, filterText.value)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -21,7 +21,7 @@
 				converter="javax.faces.Long">
 				<f:ajax
 						event="change"
-						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories)}"
+						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories, filterText.value)}"
 						execute="@this"
 						render=":productListForm:productTable" />
 				<f:selectItems value="#{productCategoryDataModel.list}"
@@ -35,7 +35,17 @@
 			<h:commandButton action="#{productCategorySelector.selectNone()}"
 				value="Select None" />
 		</h:form>
-
+		<h:form id="filterSelectorForm">
+			<h:outputText value="Filter: " />
+			<h:inputText binding="#{filterText}" >
+				<f:ajax
+						event="keyup"
+						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories, filterText.value)}"
+						execute="@this"
+						render=":productListForm:productTable" />
+			</h:inputText>
+		</h:form>
+		
 		<h:form id="productListForm">
 
 			<h:dataTable id="productTable" value="#{productDataModel.list}"
