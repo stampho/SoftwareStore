@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "product")
@@ -24,21 +29,30 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
-
+	
+	@NotEmpty
+	@Size(min = 2, max = 14)
 	private String name;
+	
+	@NotEmpty
 	private String version;
+	
+	@NotEmpty
 	private String company;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "release_date")
 	private Date releaseDate;
 
+	@NotNull
 	private Long price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
+	@NotEmpty
 	private ProductCategory category;
 
+	@Length(max=255)
 	private String description;
 
 	// TODO: It would be nice to have a picture for the product

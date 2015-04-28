@@ -15,6 +15,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 @Entity
 @Table(name = "user", uniqueConstraints = {
 		@UniqueConstraint(name = "unique_name", columnNames = { "name" }),
@@ -27,11 +32,14 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
+	@NotEmpty
+	@Length(min = 2, max = 14)
 	private String name;
 
-	// TODO: Regex for the email
+	@Email
 	private String email;
-
+	
+	@NotEmpty
 	private String password;
 
 	@Column(name = "registration_date")
@@ -39,9 +47,11 @@ public class User implements Serializable {
 	private Date registrationDate;
 
 	@Column(name = "real_name")
+	@Length(max = 31)
 	private String realName;
 
 	@Enumerated(EnumType.ORDINAL)
+	@NotEmpty
 	private Role role;
 
 	// TODO: It would be nice to have a picture for the user's profile
