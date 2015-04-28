@@ -39,12 +39,6 @@ public class ProductCategorySelector implements Serializable {
 	public void setSelectedCategories(List<Long> selectedCategories) {
 		this.selectedCategories = selectedCategories;
 	}
-
-	// WORKAROUND: <h:button> doesn't work properly, <h:commandButton> is used instead.
-	// TODO(pvarga): Use AJAX for filtering!
-	public void filter() {
-		return;
-	}
 	
 	public void selectAll() {
 		List<ProductCategory> categories = this.productCategoryDAO.list();

@@ -14,9 +14,6 @@
 	</f:metadata>
 
 	<ui:define name="content">
-	
-	 	<h:outputScript library="js" name="clearCache.js"  /> 
-
 		<h:form id="categorySelectorForm">
 			<p:selectManyCheckbox id="categorySelector"
 				value="#{productCategorySelector.selectedCategories}" layout="grid"
@@ -33,8 +30,6 @@
 					
 			</p:selectManyCheckbox>
 
-			<h:commandButton action="#{productCategorySelector.filter()}"
-				value="Filter" />
 			<h:commandButton action="#{productCategorySelector.selectAll()}"
 				value="Select All" />
 			<h:commandButton action="#{productCategorySelector.selectNone()}"
@@ -42,13 +37,9 @@
 		</h:form>
 
 		<h:form id="productListForm">
-			<div>
-				<h:outputText value="no products"
-					rendered="#{empty productDataModel.list}" />
-			</div>
 
 			<h:dataTable id="productTable" value="#{productDataModel.list}"
-				var="product" rendered="#{not empty productDataModel.list}"
+				var="product"
 				styleClass="simpletablestyle">
 
 				<h:column>
