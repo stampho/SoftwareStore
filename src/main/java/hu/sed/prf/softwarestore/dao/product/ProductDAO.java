@@ -18,18 +18,32 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> findByCategoryAndFilterText(ProductCategory category, String filterText) {
+	public List<Product> findByCategoryAndFilterText(ProductCategory category,
+			String filterText, long minPrice, long maxPrice) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("category", category));
-		
-		if(filterText!= null && !"".equals(filterText)) {
+
+		if (filterText != null && !"".equals(filterText)) {
 			criteria.add(Restrictions.or(
-				Restrictions.ilike("name", "%" + filterText + "%"),
-				Restrictions.ilike("version", "%" + filterText + "%"),
-				Restrictions.ilike("company", "%" + filterText + "%"),
-				Restrictions.ilike("description", "%" + filterText + "%")));
+					Restrictions.ilike("name", "%" + filterText + "%"),
+					Restrictions.ilike("version", "%" + filterText + "%"),
+					Restrictions.ilike("company", "%" + filterText + "%"),
+					Restrictions.ilike("description", "%" + filterText + "%")));
 
 		}
+
+		if (minPrice != -1)
+			criteria.add(Restrictions.gt("price", minPrice));
+		if (maxPrice != -1)
+			criteria.add(Restrictions.lt("price", maxPrice));
+
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product> findByCategoryAndFilterText(ProductCategory category) {
+		Criteria criteria = getSession().createCriteria(getPersistentClass());
+		criteria.add(Restrictions.eq("category", category));
 		return criteria.list();
 	}
 }

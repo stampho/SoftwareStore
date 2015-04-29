@@ -47,21 +47,60 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		setList(userProducts);
 	}
 
-	public void loadByCategories(List<Long> categories, String filter) {
+	public void loadByCategories(List<Long> categories, String filter,
+			String minPrice, String maxPrice) {
 		List<Product> filteredProducts = new ArrayList<Product>();
+
+		System.out.println("filter: " + filter + " min: " + minPrice + " max: "
+				+ maxPrice);
 		String filterText = filter == null ? "" : filter;
-		
+		long filterMinPrice = (minPrice != null && !"".equals(minPrice)) ? Long
+				.parseLong(minPrice) : -1;
+		long filterMaxPrice = (maxPrice != null && !"".equals(maxPrice)) ? Long
+				.parseLong(maxPrice) : -1;
+
+		System.out.println("2222filter: " + filterText + " min: "
+				+ filterMinPrice + " max: " + filterMaxPrice);
+
 		if (categories == null || categories.isEmpty()) {
 			setList(filteredProducts);
 			return;
 		}
 
 		for (Long categoryId : categories) {
-			ProductCategory category = productCategoryDAO.findEntity(categoryId);
-			filteredProducts.addAll(productDAO.findByCategoryAndFilterText(category, filterText));
+			ProductCategory category = productCategoryDAO
+					.findEntity(categoryId);
+			filteredProducts.addAll(productDAO.findByCategoryAndFilterText(
+					category, filterText, filterMinPrice, filterMaxPrice));
 		}
 
 		setList(filteredProducts);
+	}
+
+	public void loadByCategories(List<Long> categories) {
+		List<Product> filteredProducts = new ArrayList<Product>();
+
+		if (categories == null || categories.isEmpty()) {
+			setList(filteredProducts);
+			return;
+		}
+
+		for (Long categoryId : categories) {
+			ProductCategory category = productCategoryDAO
+					.findEntity(categoryId);
+			filteredProducts.addAll(productDAO
+					.findByCategoryAndFilterText(category));
+		}
+
+		setList(filteredProducts);
+	}
+
+	// TODO valahogy el kellene érni az inputTexteket
+	public void clearFilters() {
+		// filterSelectorForm.fText.value="";
+		// document.getElementById("filterSelectorForm:fText").value = "";
+		// filterText = null;
+		return;
 	}
 
 }

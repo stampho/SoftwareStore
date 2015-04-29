@@ -3,14 +3,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="/templates/default.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/templates/default.xhtml">
 
 	<f:metadata>
 		<f:event type="preRenderView"
 			listener="#{productCategoryDataModel.load()}" />
 		<f:event type="preRenderView"
-			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories, filterText.value)}" />
+			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
+			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -19,15 +19,14 @@
 				value="#{productCategorySelector.selectedCategories}" layout="grid"
 				columns="3" styleClass="categorySelector"
 				converter="javax.faces.Long">
-				<f:ajax
-						event="change"
-						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories, filterText.value)}"
-						execute="@this"
-						render=":productListForm:productTable" />
+				<f:ajax event="change"
+					listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
+			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}"
+					execute="@this" render=":productListForm:productTable" />
 				<f:selectItems value="#{productCategoryDataModel.list}"
 					var="category" itemLabel="#{category.name}"
 					itemValue="#{category.id}" />
-					
+
 			</p:selectManyCheckbox>
 
 			<h:commandButton action="#{productCategorySelector.selectAll()}"
@@ -36,21 +35,70 @@
 				value="Select None" />
 		</h:form>
 		<h:form id="filterSelectorForm">
-			<h:outputText value="Filter: " />
-			<h:inputText binding="#{filterText}" >
-				<f:ajax
-						event="keyup"
-						listener="#{productDataModel.loadByCategories(categorySelector.selectedCategories, filterText.value)}"
-						execute="@this"
-						render=":productListForm:productTable" />
-			</h:inputText>
+
+			<p:panelGrid style="margin-top:20px">
+
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="5">Filter</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:30%">name, version, company, description</p:column>
+						<p:column style="width:20%">price min</p:column>
+						<p:column style="width:20%">price max</p:column>
+						<p:column style="width:15%">date</p:column>
+						<p:column style="width:15%">order</p:column>
+					</p:row>
+
+				</f:facet>
+				<p:row>
+					<p:column>
+						<h:inputText id="fText" binding="#{filterText}" autocomplete="off"
+							maxlength="20" size="10">
+						</h:inputText>
+					</p:column>
+					<p:column>
+						<h:inputText id="priceMinText" binding="#{priceMinFilterText}"
+							autocomplete="off" maxlength="10" size="6">
+							<f:convertNumber longOnly="true" />
+						</h:inputText>
+					</p:column>
+					<p:column>
+						<h:inputText id="priceMaxText" binding="#{priceMaxFilterText}"
+							autocomplete="off" maxlength="10" size="6">
+							<f:convertNumber longOnly="true" />
+						</h:inputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="Date TODO" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="order TODO" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="5" style="font-weight: bold;">
+
+						<h:commandButton value="Filter"
+							action="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
+			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}">
+							<f:ajax execute="@form" render=":productListForm:productTable" />
+						</h:commandButton>
+
+						<h:commandButton value="TODO Clear"
+							action="#{productDataModel.clearFilters()}" />
+
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
 		</h:form>
-		
+
 		<h:form id="productListForm">
 
 			<h:dataTable id="productTable" value="#{productDataModel.list}"
-				var="product"
-				styleClass="simpletablestyle">
+				var="product" styleClass="simpletablestyle">
 
 				<h:column>
 					<f:facet name="header">Category</f:facet>
