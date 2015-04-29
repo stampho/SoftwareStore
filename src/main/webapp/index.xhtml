@@ -9,8 +9,7 @@
 		<f:event type="preRenderView"
 			listener="#{productCategoryDataModel.load()}" />
 		<f:event type="preRenderView"
-			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}" />
+			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -20,8 +19,7 @@
 				columns="3" styleClass="categorySelector"
 				converter="javax.faces.Long">
 				<f:ajax event="change"
-					listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}"
+					listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories)}"
 					execute="@this" render=":productListForm:productTable" />
 				<f:selectItems value="#{productCategoryDataModel.list}"
 					var="category" itemLabel="#{category.name}"
@@ -58,10 +56,10 @@
 						</h:inputText>
 					</p:column>
 					<p:column>
-					 <p:spinner value="#{productDataModel.priceMin}" min="0" max="100000" size="10" />
+					 <p:spinner value="#{productDataModel.priceMin}" min="0" size="10" />
 					</p:column>
 					<p:column>
-					 <p:spinner value="#{productDataModel.priceMax}" min="0" max="100000" size="10" />
+					 <p:spinner value="#{productDataModel.priceMax}" min="0" size="10" />
 					</p:column>
 					<p:column>
 						<h:outputText value="Date TODO" />
@@ -75,8 +73,7 @@
 					<p:column colspan="5" style="font-weight: bold;">
 
 						<h:commandButton value="Filter"
-							action="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}">
+							action="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories)}">
 							<f:ajax execute="@form" render=":productListForm:productTable" />
 						</h:commandButton>
 

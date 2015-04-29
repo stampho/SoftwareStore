@@ -18,7 +18,7 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> findByCategoryAndFilterText(ProductCategory category,
+	public List<Product> findByCategoryAndFilters(ProductCategory category,
 			String filterText, long minPrice, long maxPrice) {
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("category", category));
@@ -32,9 +32,9 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 
 		}
 
-		if (minPrice != -1)
+		if (minPrice > 0)
 			criteria.add(Restrictions.gt("price", minPrice));
-		if (maxPrice != -1)
+		if (maxPrice > 0)
 			criteria.add(Restrictions.lt("price", maxPrice));
 
 		return criteria.list();

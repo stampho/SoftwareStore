@@ -51,35 +51,9 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		setList(userProducts);
 	}
 
-	public void loadByCategories(List<Long> categories, String filter,
-			Long minPrice, Long maxPrice) {
-		List<Product> filteredProducts = new ArrayList<Product>();
-	
-		String filterText = filter == null ? "" : filter;
-		
-		long filterMinPrice = (minPrice != null) ? minPrice : -1;
-		long filterMaxPrice = (maxPrice != null) ? maxPrice : -1;
-
-		
-
-		if (categories == null || categories.isEmpty()) {
-			setList(filteredProducts);
-			return;
-		}
-
-		for (Long categoryId : categories) {
-			ProductCategory category = productCategoryDAO
-					.findEntity(categoryId);
-			filteredProducts.addAll(productDAO.findByCategoryAndFilterText(
-					category, filterText, filterMinPrice, filterMaxPrice));
-		}
-
-		setList(filteredProducts);
-	}
-
 	public void loadByCategories(List<Long> categories) {
 		List<Product> filteredProducts = new ArrayList<Product>();
-
+		
 		if (categories == null || categories.isEmpty()) {
 			setList(filteredProducts);
 			return;
@@ -88,8 +62,8 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		for (Long categoryId : categories) {
 			ProductCategory category = productCategoryDAO
 					.findEntity(categoryId);
-			filteredProducts.addAll(productDAO
-					.findByCategoryAndFilterText(category));
+			filteredProducts.addAll(productDAO.findByCategoryAndFilters(
+					category, (filterText == null) ? "" : filterText, (priceMin == null) ? -1 : priceMin, (priceMax == null) ? -1 :priceMax));
 		}
 
 		setList(filteredProducts);
