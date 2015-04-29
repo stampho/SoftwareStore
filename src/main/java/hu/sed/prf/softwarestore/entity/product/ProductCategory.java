@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "product_category",
 uniqueConstraints = @UniqueConstraint(name = "unique_name", columnNames = {"name"}))
@@ -20,8 +23,10 @@ public class ProductCategory implements Serializable {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
+	@NotEmpty
 	private String name;
 
+	@Length(max=255)
 	private String description;
 
 	// TODO: It would be nice to have a picture for a category

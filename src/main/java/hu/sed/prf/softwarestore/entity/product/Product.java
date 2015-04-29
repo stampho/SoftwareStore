@@ -14,7 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -31,7 +33,7 @@ public class Product implements Serializable {
 	private Long id;
 	
 	@NotEmpty
-	@Size(min = 2, max = 14)
+	@Size(min = 2, max = 128)
 	private String name;
 	
 	@NotEmpty
@@ -42,14 +44,15 @@ public class Product implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "release_date")
+	@Past
 	private Date releaseDate;
 
-	@NotNull
+	@Min(1)
 	private Long price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
-	@NotEmpty
+	@NotNull
 	private ProductCategory category;
 
 	@Length(max=255)

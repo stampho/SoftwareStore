@@ -20,10 +20,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "sale")
@@ -37,14 +37,14 @@ public class Sale implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@NotEmpty
+	@NotNull
 	private User user;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "sale_product", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products;
 
-	@NotNull
+	@Min(1)
 	private Long payment;
 
 	@Column(name = "sale_date")

@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -44,6 +46,7 @@ public class User implements Serializable {
 
 	@Column(name = "registration_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Past
 	private Date registrationDate;
 
 	@Column(name = "real_name")
@@ -51,7 +54,7 @@ public class User implements Serializable {
 	private String realName;
 
 	@Enumerated(EnumType.ORDINAL)
-	@NotEmpty
+	@NotNull
 	private Role role;
 
 	// TODO: It would be nice to have a picture for the user's profile
