@@ -32,6 +32,10 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 	@Inject
 	private SaleDAO saleDAO;
 
+	private String filterText;
+	private Long priceMax;
+	private Long priceMin;
+	
 	@Override
 	protected AbstractGenericDAO<Product, Long> getEntityDao() {
 		return productDAO;
@@ -48,19 +52,15 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 	}
 
 	public void loadByCategories(List<Long> categories, String filter,
-			String minPrice, String maxPrice) {
+			Long minPrice, Long maxPrice) {
 		List<Product> filteredProducts = new ArrayList<Product>();
-
-		System.out.println("filter: " + filter + " min: " + minPrice + " max: "
-				+ maxPrice);
+	
 		String filterText = filter == null ? "" : filter;
-		long filterMinPrice = (minPrice != null && !"".equals(minPrice)) ? Long
-				.parseLong(minPrice) : -1;
-		long filterMaxPrice = (maxPrice != null && !"".equals(maxPrice)) ? Long
-				.parseLong(maxPrice) : -1;
+		
+		long filterMinPrice = (minPrice != null) ? minPrice : -1;
+		long filterMaxPrice = (maxPrice != null) ? maxPrice : -1;
 
-		System.out.println("2222filter: " + filterText + " min: "
-				+ filterMinPrice + " max: " + filterMaxPrice);
+		
 
 		if (categories == null || categories.isEmpty()) {
 			setList(filteredProducts);
@@ -95,12 +95,37 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		setList(filteredProducts);
 	}
 
-	// TODO valahogy el kellene érni az inputTexteket
 	public void clearFilters() {
-		// filterSelectorForm.fText.value="";
-		// document.getElementById("filterSelectorForm:fText").value = "";
-		// filterText = null;
+		 filterText = null;
+		 priceMax = null;
+		 priceMin = null;
+ 
 		return;
 	}
+
+	public String getFilterText() {
+		return filterText;
+	}
+
+	public void setFilterText(String filterText) {
+		this.filterText = filterText;
+	}
+
+	public Long getPriceMax() {
+		return priceMax;
+	}
+
+	public void setPriceMax(Long priceMax) {
+		this.priceMax = priceMax;
+	}
+
+	public Long getPriceMin() {
+		return priceMin;
+	}
+
+	public void setPriceMin(Long priceMin) {
+		this.priceMin = priceMin;
+	}
+
 
 }

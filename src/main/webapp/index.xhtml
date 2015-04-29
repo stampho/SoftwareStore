@@ -10,7 +10,7 @@
 			listener="#{productCategoryDataModel.load()}" />
 		<f:event type="preRenderView"
 			listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}" />
+			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -21,7 +21,7 @@
 				converter="javax.faces.Long">
 				<f:ajax event="change"
 					listener="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}"
+			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}"
 					execute="@this" render=":productListForm:productTable" />
 				<f:selectItems value="#{productCategoryDataModel.list}"
 					var="category" itemLabel="#{category.name}"
@@ -53,21 +53,15 @@
 				</f:facet>
 				<p:row>
 					<p:column>
-						<h:inputText id="fText" binding="#{filterText}" autocomplete="off"
+						<h:inputText value="#{productDataModel.filterText}" autocomplete="off"
 							maxlength="20" size="10">
 						</h:inputText>
 					</p:column>
 					<p:column>
-						<h:inputText id="priceMinText" binding="#{priceMinFilterText}"
-							autocomplete="off" maxlength="10" size="6">
-							<f:convertNumber longOnly="true" />
-						</h:inputText>
+					 <p:spinner value="#{productDataModel.priceMin}" min="0" max="100000" />
 					</p:column>
 					<p:column>
-						<h:inputText id="priceMaxText" binding="#{priceMaxFilterText}"
-							autocomplete="off" maxlength="10" size="6">
-							<f:convertNumber longOnly="true" />
-						</h:inputText>
+					 <p:spinner value="#{productDataModel.priceMax}" min="0" max="100000" />
 					</p:column>
 					<p:column>
 						<h:outputText value="Date TODO" />
@@ -82,13 +76,13 @@
 
 						<h:commandButton value="Filter"
 							action="#{productDataModel.loadByCategories(productCategorySelector.selectedCategories,
-			 filterText.value, priceMinFilterText.value, priceMaxFilterText.value)}">
+			 productDataModel.filterText, productDataModel.priceMin, productDataModel.priceMax)}">
 							<f:ajax execute="@form" render=":productListForm:productTable" />
 						</h:commandButton>
 
-						<h:commandButton value="TODO Clear"
-							action="#{productDataModel.clearFilters()}" />
-
+						<h:commandButton value="Clear"
+							action="#{productDataModel.clearFilters()}" >
+							</h:commandButton>
 					</p:column>
 				</p:row>
 
