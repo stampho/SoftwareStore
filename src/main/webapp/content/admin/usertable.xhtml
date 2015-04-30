@@ -82,23 +82,23 @@
 					value="#{userCredentials.originalUsername}" />
 
 				<h:outputLabel for="username">Username:</h:outputLabel>
-				<h:inputText id="username" value="#{userCredentials.username}" />
+				<p:inputText id="username" value="#{userCredentials.username}" />
 				<h:outputText id="usernameError" value="#{userError.usernameError}"
 					styleClass="error" />
 
 				<h:outputLabel for="email">Email:</h:outputLabel>
-				<h:inputText id="email" value="#{userCredentials.email}" />
+				<p:inputText id="email" value="#{userCredentials.email}" />
 				<h:outputText id="emailError" value="#{userError.emailError}"
 					styleClass="error" />
 
 				<h:outputLabel for="realname">Realname:</h:outputLabel>
-				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<p:inputText id="realname" value="#{userCredentials.realname}" />
 				<h:outputText value="" />
 
 				<h:outputLabel for="role">Role:</h:outputLabel>
-				<h:selectOneMenu id="role" value="#{userCredentials.role}">
+				<p:selectOneMenu id="role" value="#{userCredentials.role}">
 					<f:selectItems value="#{userDataModel.roles}" />
-				</h:selectOneMenu>
+				</p:selectOneMenu>
 				<h:outputText value="" />
 
 				<h:outputLabel for="date">Registration Date:</h:outputLabel>
@@ -121,22 +121,22 @@
 		<h:form id="addUserForm">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="username">Username:</h:outputLabel>
-				<h:inputText id="username" value="#{userCredentials.username}" />
+				<p:inputText id="username" value="#{userCredentials.username}" />
 				<h:outputText id="usernameError" value="#{userError.usernameError}"
 					styleClass="error" />
 
 				<h:outputLabel for="email">Email:</h:outputLabel>
-				<h:inputText id="email" value="#{userCredentials.email}" />
+				<p:inputText id="email" value="#{userCredentials.email}" />
 				<h:outputText id="emailError" value="#{userError.emailError}"
 					styleClass="error" />
 				<h:outputLabel for="realname">Realname:</h:outputLabel>
-				<h:inputText id="realname" value="#{userCredentials.realname}" />
+				<p:inputText id="realname" value="#{userCredentials.realname}" />
 				<h:outputText value="" />
 
 				<h:outputLabel for="role">Role:</h:outputLabel>
-				<h:selectOneMenu id="role" value="#{userCredentials.role}">
+				<p:selectOneMenu id="role" value="#{userCredentials.role}">
 					<f:selectItems value="#{userDataModel.roles}" />
-				</h:selectOneMenu>
+				</p:selectOneMenu>
 				<h:outputText value="" />
 			</h:panelGrid>
 
