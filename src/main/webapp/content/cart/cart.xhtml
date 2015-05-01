@@ -5,6 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/templates/default.xhtml">
 
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loggedInUser.checkAccess()}" />
+    </f:metadata>
+
 	<ui:define name="content">
 		<h2>Cart</h2>
 

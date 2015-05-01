@@ -5,6 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" template="/templates/default.xhtml">
 
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{loggedInUser.checkAccess()}" />
+    </f:metadata>
+
 	<ui:define name="content">
 		<h2>Manage Tables</h2>
 		<p:tabView orientation="top" id="tabview">

@@ -6,6 +6,8 @@
 	template="/templates/default.xhtml">
 
 	<f:metadata>
+	    <f:event type="preRenderView"
+	        listener="#{loggedInUser.checkAccess()}" />
 		<f:event type="preRenderView"
 			listener="#{userCredentials.fill(loggedInUser.user)}" />
 		<f:event type="preRenderView"
