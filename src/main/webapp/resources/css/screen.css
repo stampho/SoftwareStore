@@ -27,10 +27,10 @@ body {
 #container {
     margin: 0 auto;
     padding: 0 20px 10px 20px;
-    border-top: 5px solid #000000;
-    border-left: 5px solid #8c8f91;
-    border-right: 5px solid #8c8f91;
-    border-bottom: 25px solid #8c8f91;
+    border-top: 5px solid #3a539b;
+    border-left: 5px solid #97aade;
+    border-right: 5px solid #97aade;
+    border-bottom: 25px solid #97aade;
     width: 865px; /* subtract 40px from banner width for padding */
     background: #FFFFFF;
     background-image:
@@ -49,6 +49,7 @@ body {
 .title {
 	color: #243446;
 	font-size: 2.25em;
+	margin-left:10px;
 }
 
 .title:hover {
@@ -207,11 +208,10 @@ input {
 }
 
 .simpletablestyle th {
-    background: url(#{request.contextPath}/resources/gfx/bkg-blkheader.png)
-        black repeat-x top left;
+    background-color:#3a539b;
     font-size: 12px;
     font-weight: normal;
-    padding: 0 10px 0 5px;
+    padding: 5px;
     border-bottom: #999999 dotted 1px;
 }
 
@@ -261,4 +261,23 @@ input {
 .simpletablestyle td a:hover {
     color: #3883ce;
     text-decoration: none;
+}
+
+/**/
+input[type="submit"], input[type="button"], button {
+	color:#FFF;
+	background-color:#5673c3;
+	padding:6px 8px;
+	margin:2px;
+	border:none;
+	cursor:pointer;
+}
+input[type="submit"]:disabled, input[type="button"]:disabled, button:disabled {
+	color:#555;
+	background-color:#DDD;
+	cursor:not-allowed;
+}
+
+.btn-remove {
+	background-color:#ff6060!important;
 }

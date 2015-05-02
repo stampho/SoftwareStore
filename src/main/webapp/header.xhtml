@@ -4,6 +4,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
+	<h:link outcome="/index.xhtml">
+		<h:graphicImage value="#{resource['image:softwarestore-logo.png']}" styleClass="product-image" />
+	</h:link>
 	<h:link outcome="/index.xhtml" value="SoftwareStore" styleClass="title" />
 
 	<h:panelGroup rendered="#{empty loggedInUser.user}"
@@ -21,6 +24,10 @@
 			<h:link rendered="#{loggedInUser.administrator}" outcome="/content/admin/tables.xhtml" value="Manage Tables" />
 			<h:commandLink action="#{userAction.logout()}" value="Log out" />
 		</h:form>
+	</h:panelGroup>
+	<br />
+	<h:panelGroup styleClass="mainMenu">
+		<h:link outcome="/content/store/bestseller.xhtml" value="Bestseller products" />
 	</h:panelGroup>
 
 </ui:composition>
