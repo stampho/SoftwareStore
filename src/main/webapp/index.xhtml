@@ -41,32 +41,38 @@
 						<p:column colspan="5">Filter</p:column>
 					</p:row>
 					<p:row>
-						<p:column style="width:30%">name, version, company, description</p:column>
-						<p:column style="width:20%">price min</p:column>
-						<p:column style="width:20%">price max</p:column>
-						<p:column style="width:15%">date</p:column>
-						<p:column style="width:15%">order</p:column>
+						<p:column style="width:20%">name, version, company, description</p:column>
+						<p:column style="width:10%">price min</p:column>
+						<p:column style="width:10%">price max</p:column>
+						<p:column style="width:20%">from date</p:column>
+						<p:column style="width:20%">to date</p:column>
 					</p:row>
 
 				</f:facet>
 				<p:row>
 					<p:column>
-						<h:inputText value="#{productDataModel.filterText}" autocomplete="off"
-							maxlength="20" size="20">
+						<h:inputText value="#{productDataModel.filterText}"
+							autocomplete="off" maxlength="20" size="20">
 						</h:inputText>
 					</p:column>
 					<p:column>
-					 <p:spinner value="#{productDataModel.priceMin}" min="0" size="10" />
+						<p:spinner value="#{productDataModel.priceMin}" min="0" size="10" />
 					</p:column>
 					<p:column>
-					 <p:spinner value="#{productDataModel.priceMax}" min="0" size="10" />
+						<p:spinner value="#{productDataModel.priceMax}" min="0" size="10" />
 					</p:column>
 					<p:column>
-						<h:outputText value="Date TODO" />
+						<p:calendar id="buttonfrom" size="6" pattern="dd-MM-yyyy"
+							maxdate="#{productDataModel.toDate}"
+							value="#{productDataModel.fromDate}" showOn="button"
+							onchange="#{productDataModel.fromDateChanged()}" />
 					</p:column>
-
 					<p:column>
-						<h:outputText value="order TODO" />
+						<p:calendar id="buttonto" size="7" pattern="dd-MM-yyyy"
+							mindate="#{productDataModel.fromDate}"
+							maxdate="#{productDataModel.currentDate}"
+							value="#{productDataModel.toDate}" showOn="button"
+							onchange="#{productDataModel.toDateChanged()}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -78,8 +84,8 @@
 						</h:commandButton>
 
 						<h:commandButton value="Clear"
-							action="#{productDataModel.clearFilters()}" >
-							</h:commandButton>
+							action="#{productDataModel.clearFilters()}">
+						</h:commandButton>
 					</p:column>
 				</p:row>
 
@@ -92,13 +98,25 @@
 				var="product" styleClass="simpletablestyle">
 
 				<h:column>
-					<f:facet name="header">Category</f:facet>
+					<f:facet name="header">
+						<h:commandLink style="text-decoration:none;color:white;"
+							value="Category" action="#{productDataModel.sortByOrderNo}">
+							<f:ajax execute="@form" render=":productListForm:productTable" />
+						</h:commandLink>
+					</f:facet>
 					<h:outputText value="#{product.category}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">Product</f:facet>
 					<h:outputText value="#{product}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Release Date</f:facet>
+					<h:outputText value="#{product.releaseDate}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
 				</h:column>
 
 				<h:column>

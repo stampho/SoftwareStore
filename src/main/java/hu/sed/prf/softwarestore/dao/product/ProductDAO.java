@@ -4,6 +4,7 @@ import hu.sed.prf.softwarestore.dao.core.AbstractGenericDAO;
 import hu.sed.prf.softwarestore.entity.product.Product;
 import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -20,18 +21,25 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 
 	@SuppressWarnings("unchecked")
 	public List<Product> findByCategoryAndFilters(ProductCategory category,
-			String filterText, long minPrice, long maxPrice) {
+			String filterText, long minPrice, long maxPrice, Date fromDate,
+			Date toDate) {
+
 		Criteria criteria = getSession().createCriteria(getPersistentClass());
 		criteria.add(Restrictions.eq("category", category));
 
 		if (filterText != null && !"".equals(filterText)) {
-			//criteria.add(Restrictions.ilike("name", filterText, MatchMode.ANYWHERE));
-			criteria.add(Restrictions.or(
-					Restrictions.ilike("name", filterText, MatchMode.ANYWHERE),
-					Restrictions.ilike("version", filterText, MatchMode.ANYWHERE),
-					Restrictions.ilike("company",filterText, MatchMode.ANYWHERE)));
-				//	Restrictions.ilike("description", filterText, MatchMode.ANYWHERE )));
+			criteria.add(Restrictions.or(Restrictions.ilike("name", filterText,
+					MatchMode.ANYWHERE), Restrictions.ilike("version",
+					filterText, MatchMode.ANYWHERE), Restrictions.ilike(
+					"company", filterText, MatchMode.ANYWHERE), Restrictions
+					.ilike("description", filterText, MatchMode.ANYWHERE)));
 
+		}
+		if (fromDate != null) {
+			criteria.add(Restrictions.ge("releaseDate", fromDate));
+		}
+		if (toDate != null) {
+			criteria.add(Restrictions.le("releaseDate", toDate));
 		}
 
 		if (minPrice > 0)
@@ -48,4 +56,5 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 		criteria.add(Restrictions.eq("category", category));
 		return criteria.list();
 	}
+
 }
