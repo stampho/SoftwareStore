@@ -7,6 +7,7 @@ import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 public class ProductDAO extends AbstractGenericDAO<Product, Long> {
@@ -24,11 +25,12 @@ public class ProductDAO extends AbstractGenericDAO<Product, Long> {
 		criteria.add(Restrictions.eq("category", category));
 
 		if (filterText != null && !"".equals(filterText)) {
+			//criteria.add(Restrictions.ilike("name", filterText, MatchMode.ANYWHERE));
 			criteria.add(Restrictions.or(
-					Restrictions.ilike("name", "%" + filterText + "%"),
-					Restrictions.ilike("version", "%" + filterText + "%"),
-					Restrictions.ilike("company", "%" + filterText + "%"),
-					Restrictions.ilike("description", "%" + filterText + "%")));
+					Restrictions.ilike("name", filterText, MatchMode.ANYWHERE),
+					Restrictions.ilike("version", filterText, MatchMode.ANYWHERE),
+					Restrictions.ilike("company",filterText, MatchMode.ANYWHERE)));
+				//	Restrictions.ilike("description", filterText, MatchMode.ANYWHERE )));
 
 		}
 
