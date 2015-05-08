@@ -100,26 +100,42 @@
 				<h:column>
 					<f:facet name="header">
 						<h:commandLink style="text-decoration:none;color:white;"
-							value="Category" action="#{productDataModel.sortByOrderNo}">
+							value="Category" action="#{productDataModel.setOrderByType(0)}">
 							<f:ajax execute="@form" render=":productListForm:productTable" />
 						</h:commandLink>
 					</f:facet>
 					<h:outputText value="#{product.category}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Product</f:facet>
+					<f:facet name="header">
+						<h:commandLink style="text-decoration:none;color:white;"
+							value="Product" action="#{productDataModel.setOrderByType(1)}">
+							<f:ajax execute="@form" render=":productListForm:productTable" />
+						</h:commandLink>
+					</f:facet>
 					<h:outputText value="#{product}" />
 				</h:column>
 
 				<h:column>
-					<f:facet name="header">Release Date</f:facet>
+					<f:facet name="header">
+						<h:commandLink style="text-decoration:none;color:white;"
+							value="Release Date"
+							action="#{productDataModel.setOrderByType(2)}">
+							<f:ajax execute="@form" render=":productListForm:productTable" />
+						</h:commandLink>
+					</f:facet>
 					<h:outputText value="#{product.releaseDate}">
 						<f:convertDateTime pattern="dd-MM-yyyy" />
 					</h:outputText>
 				</h:column>
 
 				<h:column>
-					<f:facet name="header">Price</f:facet>
+					<f:facet name="header">
+						<h:commandLink style="text-decoration:none;color:white;"
+							value="Price" action="#{productDataModel.setOrderByType(3)}">
+							<f:ajax execute="@form" render=":productListForm:productTable" />
+						</h:commandLink>
+					</f:facet>
 					<h:outputText value="#{product.price}" />
 				</h:column>
 
@@ -131,8 +147,7 @@
 					<h:commandButton action="#{cart.remove(product.id)}"
 						rendered="#{cart.has(product.id)}"
 						disabled="#{empty loggedInUser.user or loggedInUser.administrator}"
-						value="Remove from Cart" 
-						styleClass="btn-remove" />
+						value="Remove from Cart" styleClass="btn-remove" />
 				</h:column>
 
 			</h:dataTable>

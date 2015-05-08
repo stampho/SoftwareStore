@@ -42,7 +42,14 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 	private Date fromDate = new Date(1);
 	private Date toDate = new Date();
 	private Date currentDate = new Date();
-	private boolean sortAscending = true;
+
+	private OrderByType orderByType = null;
+
+	private Boolean sortAscending = true;
+
+	private enum OrderByType {
+		CATEGORY, PRODUCT, RELEASEDATE, PRICE
+	}
 
 	@Override
 	protected AbstractGenericDAO<Product, Long> getEntityDao() {
@@ -78,7 +85,9 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 							fromDate == null ? new Date() : fromDate,
 							fromDate == null ? new Date() : toDate));
 		}
-
+		if (orderByType != null) {
+			sortList(filteredProducts, orderByType);
+		}
 		setList(filteredProducts);
 	}
 
@@ -105,41 +114,57 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		}
 	}
 
-	// TODO valamiért sorba rakja, de az nem jelenik meg
-	public String sortByOrderNo() {
-		List<Product> result = getList();
+	public String sortList(List<Product> list, final OrderByType orderByType) {
 		if (sortAscending) {
-
 			// ascending order
-			Collections.sort(result, new Comparator<Product>() {
-
+			Collections.sort(list, new Comparator<Product>() {
 				@Override
 				public int compare(Product o1, Product o2) {
-					return o1.getCategory().getName()
-							.compareTo(o2.getCategory().getName());
+					if (orderByType == OrderByType.CATEGORY) {
+						return o1.getCategory().getName()
+								.compareTo(o2.getCategory().getName());
+					} else if (orderByType == OrderByType.PRODUCT) {
+						return o1.getCompany().toLowerCase()
+								.compareTo(o2.getCompany().toLowerCase());
+					} else if (orderByType == OrderByType.RELEASEDATE) {
+						Date date1 = o1.getReleaseDate();
+						Date date2 = o2.getReleaseDate();
+						return date1.compareTo(date2);
+					} else if (orderByType == OrderByType.PRICE) {
+						return o1.getPrice().compareTo(o2.getPrice());
+					} else {
+						return o1.getCompany().toLowerCase()
+								.compareTo(o2.getCompany().toLowerCase());
+					}
 
 				}
-
 			});
 			sortAscending = false;
-
 		} else {
-
 			// descending order
-			Collections.sort(result, new Comparator<Product>() {
-
+			Collections.sort(list, new Comparator<Product>() {
 				@Override
 				public int compare(Product o1, Product o2) {
-
-					return o2.getCategory().getName()
-							.compareTo(o1.getCategory().getName());
+					if (orderByType == OrderByType.CATEGORY) {
+						return o2.getCategory().getName()
+								.compareTo(o1.getCategory().getName());
+					} else if (orderByType == OrderByType.PRODUCT) {
+						return o2.getCompany().toLowerCase()
+								.compareTo(o1.getCompany().toLowerCase());
+					} else if (orderByType == OrderByType.RELEASEDATE) {
+						return o2.getReleaseDate().compareTo(
+								o1.getReleaseDate());
+					} else if (orderByType == OrderByType.PRICE) {
+						return o2.getPrice().compareTo(o1.getPrice());
+					} else {
+						return o2.getCategory().getName()
+								.compareTo(o1.getCategory().getName());
+					}
 
 				}
-
 			});
 			sortAscending = true;
 		}
-		setList(result);
 		return null;
 	}
 
@@ -191,4 +216,23 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 		this.currentDate = currentDate;
 	}
 
+	public OrderByType getOrderByType() {
+		return orderByType;
+	}
+
+	public void setOrderByType(int orderByType) {
+		if (orderByType == 0) {
+			this.orderByType = OrderByType.CATEGORY;
+		} else if (orderByType == 1) {
+			this.orderByType = OrderByType.PRODUCT;
+		} else if (orderByType == 2) {
+			this.orderByType = OrderByType.RELEASEDATE;
+		} else if (orderByType == 3) {
+			this.orderByType = OrderByType.PRICE;
+		}
+	}
+
+	public void setOrderByType(OrderByType orderByType) {
+		this.orderByType = orderByType;
+	}
 }
