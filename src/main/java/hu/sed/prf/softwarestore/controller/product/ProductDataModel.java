@@ -129,7 +129,16 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 					} else if (orderByType == OrderByType.RELEASEDATE) {
 						Date date1 = o1.getReleaseDate();
 						Date date2 = o2.getReleaseDate();
-						return date1.compareTo(date2);
+						if (date1.after(date2)) {
+							return -1;
+						} else if (date1.before(date2)) {
+							return 1;
+						} else if (date1.equals(date2)) {
+							return 0;
+						} else {
+							return 0;
+						}
+
 					} else if (orderByType == OrderByType.PRICE) {
 						return o1.getPrice().compareTo(o2.getPrice());
 					} else {
@@ -152,8 +161,17 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 						return o2.getCompany().toLowerCase()
 								.compareTo(o1.getCompany().toLowerCase());
 					} else if (orderByType == OrderByType.RELEASEDATE) {
-						return o2.getReleaseDate().compareTo(
-								o1.getReleaseDate());
+						Date date1 = o1.getReleaseDate();
+						Date date2 = o2.getReleaseDate();
+						if (date1.after(date2)) {
+							return 1;
+						} else if (date1.before(date2)) {
+							return -1;
+						} else if (date1.equals(date2)) {
+							return 0;
+						} else {
+							return 0;
+						}
 					} else if (orderByType == OrderByType.PRICE) {
 						return o2.getPrice().compareTo(o1.getPrice());
 					} else {
