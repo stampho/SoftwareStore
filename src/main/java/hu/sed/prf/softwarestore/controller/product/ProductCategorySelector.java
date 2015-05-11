@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,20 +18,17 @@ public class ProductCategorySelector implements Serializable {
 
 	private static final long serialVersionUID = -5863822915793991250L;
 
-	@Inject
 	private ProductCategoryDAO productCategoryDAO;
 
-	// TODO(pvarga): Categories should be reseted after user logs out
 	private List<Long> selectedCategories = new ArrayList<Long>();
 
-	// TODO(pvarga): Select all categories per default
-	/*
+	@Inject
 	@PostConstruct
-	public void init() {
+	public void init(ProductCategoryDAO productCategoryDAO) {
+		this.productCategoryDAO = productCategoryDAO;
 		this.selectedCategories = new ArrayList<Long>();
 		this.selectAll();
 	}
-	*/
 
 	public List<Long> getSelectedCategories() {
 		return selectedCategories;
@@ -39,7 +37,7 @@ public class ProductCategorySelector implements Serializable {
 	public void setSelectedCategories(List<Long> selectedCategories) {
 		this.selectedCategories = selectedCategories;
 	}
-	
+
 	public void selectAll() {
 		List<ProductCategory> categories = this.productCategoryDAO.list();
 		this.selectedCategories.clear();

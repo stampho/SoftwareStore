@@ -22,7 +22,9 @@
 				value="#{loggedInUser.user.name}" style="font-weight: bold;" />
 			<h:link rendered="#{!loggedInUser.administrator}" outcome="/content/cart/cart.xhtml" value="Cart" />
 			<h:link rendered="#{loggedInUser.administrator}" outcome="/content/admin/tables.xhtml" value="Manage Tables" />
-			<h:commandLink action="#{userAction.logout()}" value="Log out" />
+			<h:commandLink action="#{userAction.logout()}" value="Log out">
+			 <f:actionListener binding="#{productCategorySelector.selectAll()}" />
+			</h:commandLink>
 		</h:form>
 	</h:panelGroup>
 	<br />
