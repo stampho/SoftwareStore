@@ -10,6 +10,9 @@ import hu.sed.prf.softwarestore.entity.product.ProductCategory;
 import hu.sed.prf.softwarestore.entity.sale.Sale;
 import hu.sed.prf.softwarestore.entity.user.User;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,7 +42,7 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 	private Long priceMax;
 	private Long priceMin;
 
-	private Date fromDate = new Date(1);
+	private Date fromDate;
 	private Date toDate = new Date();
 	private Date currentDate = new Date();
 
@@ -47,6 +50,16 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 
 	private Boolean sortAscending = true;
 
+	public ProductDataModel(){
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			fromDate  = dateFormat.parse("01/01/2007");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private enum OrderByType {
 		CATEGORY, PRODUCT, RELEASEDATE, PRICE
 	}
