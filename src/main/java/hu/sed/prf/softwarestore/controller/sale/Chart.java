@@ -82,7 +82,7 @@ public class Chart implements Serializable {
     	
         BarChartModel model = new BarChartModel();
         ChartSeries prods = new ChartSeries();
-        prods.setLabel("Products");
+        prods.setLabel("Quantity");
         
         LinkedHashMap<String, Integer> productsLinkedMap = sortHashMapByValues(productsMap);
         
@@ -112,7 +112,7 @@ public class Chart implements Serializable {
         Axis yAxis = barModel.getAxis(AxisType.Y);
         yAxis.setLabel("Quantity");
         yAxis.setMin(0);
-        yAxis.setMax(totalQty + 2);
+        yAxis.setMax(totalQty + 5);
     }
     
     /*
@@ -121,33 +121,33 @@ public class Chart implements Serializable {
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public LinkedHashMap<String, Integer> sortHashMapByValues(HashMap passedMap) {
-    	   List mapKeys = new ArrayList(passedMap.keySet());
-    	   List mapValues = new ArrayList(passedMap.values());
-    	   Collections.sort(mapValues);
-    	   Collections.sort(mapKeys);
+	   List mapKeys = new ArrayList(passedMap.keySet());
+	   List mapValues = new ArrayList(passedMap.values());
+	   Collections.sort(mapValues);
+	   Collections.sort(mapKeys);
 
-    	   LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+	   LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
 
-    	   Iterator valueIt = mapValues.iterator();
-    	   while (valueIt.hasNext()) {
-    	       Object val = valueIt.next();
-    	       Iterator keyIt = mapKeys.iterator();
+	   Iterator valueIt = mapValues.iterator();
+	   while (valueIt.hasNext()) {
+	       Object val = valueIt.next();
+	       Iterator keyIt = mapKeys.iterator();
 
-    	       while (keyIt.hasNext()) {
-    	           Object key = keyIt.next();
-    	           String comp1 = passedMap.get(key).toString();
-    	           String comp2 = val.toString();
+	       while (keyIt.hasNext()) {
+	           Object key = keyIt.next();
+	           String comp1 = passedMap.get(key).toString();
+	           String comp2 = val.toString();
 
-    	           if (comp1.equals(comp2)){
-    	               passedMap.remove(key);
-    	               mapKeys.remove(key);
-    	               sortedMap.put((String)key, (Integer)val);
-    	               break;
-    	           }
+	           if (comp1.equals(comp2)){
+	               passedMap.remove(key);
+	               mapKeys.remove(key);
+	               sortedMap.put((String)key, (Integer)val);
+	               break;
+	           }
 
-    	       }
+	       }
 
-    	   }
-    	   return sortedMap;
-    	}
+	   }
+	   return sortedMap;
+    }
 }

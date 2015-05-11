@@ -173,10 +173,6 @@ label {
     color: #363636;
 }
 
-input {
-    margin-bottom: 8px;
-}
-
 .register {
     float: left;
     margin-left: 85px;
@@ -251,7 +247,7 @@ input {
 
 /* Using new CSS3 selectors for styling*/
 .simpletablestyle tr:nth-child(odd) {
-    background: #f4f3f3;
+    background: #f5f5f5;
 }
 
 .simpletablestyle tr:nth-child(even) {
@@ -280,4 +276,31 @@ input[type="submit"]:disabled, input[type="button"]:disabled, button:disabled {
 
 .btn-remove {
 	background-color:#ff6060!important;
+}
+
+.mainMenu a {
+	background-color:#f5f5f5;
+	padding:5px 10px;
+}
+.mainMenu a:hover {
+	text-decoration:none;
+	background-color:#eeeeee;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	padding-top:15px!important;
+	padding-bottom:15px!important;
+}
+
+.ui-breadcrumb {
+	background:#f5f5f5;
+	border:1px dashed #ddd;
+	margin-bottom:25px!important;
+}
+.ui-breadcrumb ul li {
+	padding-top:2px;
+}
+.ui-breadcrumb ul li span {
+	font-size:11px;
+	font-weight:normal;
 }
