@@ -120,32 +120,29 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 			Collections.sort(list, new Comparator<Product>() {
 				@Override
 				public int compare(Product o1, Product o2) {
-					if (orderByType == OrderByType.CATEGORY) {
+					switch (orderByType) {
+					case CATEGORY:
 						return o1.getCategory().getName()
 								.compareTo(o2.getCategory().getName());
-					} else if (orderByType == OrderByType.PRODUCT) {
+					case PRODUCT:
 						return o1.getCompany().toLowerCase()
 								.compareTo(o2.getCompany().toLowerCase());
-					} else if (orderByType == OrderByType.RELEASEDATE) {
+					case RELEASEDATE:
 						Date date1 = o1.getReleaseDate();
 						Date date2 = o2.getReleaseDate();
 						if (date1.after(date2)) {
 							return -1;
 						} else if (date1.before(date2)) {
 							return 1;
-						} else if (date1.equals(date2)) {
-							return 0;
 						} else {
 							return 0;
 						}
-
-					} else if (orderByType == OrderByType.PRICE) {
+					case PRICE:
 						return o1.getPrice().compareTo(o2.getPrice());
-					} else {
+					default:
 						return o1.getCompany().toLowerCase()
 								.compareTo(o2.getCompany().toLowerCase());
 					}
-
 				}
 			});
 			sortAscending = false;
@@ -154,31 +151,29 @@ public class ProductDataModel extends AbstractDataModel<Product, Long> {
 			Collections.sort(list, new Comparator<Product>() {
 				@Override
 				public int compare(Product o1, Product o2) {
-					if (orderByType == OrderByType.CATEGORY) {
+					switch (orderByType) {
+					case CATEGORY:
 						return o2.getCategory().getName()
 								.compareTo(o1.getCategory().getName());
-					} else if (orderByType == OrderByType.PRODUCT) {
+					case PRODUCT:
 						return o2.getCompany().toLowerCase()
 								.compareTo(o1.getCompany().toLowerCase());
-					} else if (orderByType == OrderByType.RELEASEDATE) {
+					case RELEASEDATE:
 						Date date1 = o1.getReleaseDate();
 						Date date2 = o2.getReleaseDate();
 						if (date1.after(date2)) {
 							return 1;
 						} else if (date1.before(date2)) {
 							return -1;
-						} else if (date1.equals(date2)) {
-							return 0;
 						} else {
 							return 0;
 						}
-					} else if (orderByType == OrderByType.PRICE) {
+					case PRICE:
 						return o2.getPrice().compareTo(o1.getPrice());
-					} else {
+					default:
 						return o2.getCategory().getName()
 								.compareTo(o1.getCategory().getName());
 					}
-
 				}
 			});
 			sortAscending = true;

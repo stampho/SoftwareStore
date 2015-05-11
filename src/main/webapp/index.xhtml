@@ -113,8 +113,10 @@
 							<f:ajax execute="@form" render=":productListForm:productTable" />
 						</h:commandLink>
 					</f:facet>
-					<h:outputText value="#{product}" />
+					<h:outputText id ="tooltipUp" value="#{product}" />
+					<p:tooltip id="toolTipFade" for="tooltipUp" value="#{product.description}" trackMouse="true" />
 				</h:column>
+				
 
 				<h:column>
 					<f:facet name="header">
@@ -132,7 +134,7 @@
 				<h:column>
 					<f:facet name="header">
 						<h:commandLink style="text-decoration:none;color:white;"
-							value="Price" action="#{productDataModel.setOrderByType(3)}">
+							value="Price (Ft)" action="#{productDataModel.setOrderByType(3)}">
 							<f:ajax execute="@form" render=":productListForm:productTable" />
 						</h:commandLink>
 					</f:facet>

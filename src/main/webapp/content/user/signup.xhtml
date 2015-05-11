@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
 	template="/templates/default.xhtml">
 
 	<ui:define name="content">
@@ -25,8 +26,8 @@
 				<h:outputText id="realNameError" value="#{userError.realNameError}"
 					styleClass="error" />
 
-				<h:outputLabel for="password">Password*:</h:outputLabel>
-				<h:inputSecret id="password" value="#{userCredentials.password}" />
+				<h:outputLabel id="passwordLabel" for="password">Password*:</h:outputLabel>
+				<h:inputSecret id="password" value="#{userCredentials.password}" />				
 				<h:outputText id="passwordError" value="#{userError.passwordError}"
 					styleClass="error" />
 
@@ -40,6 +41,11 @@
 			<h:commandButton value="Sign up" action="#{userAction.signup()}" />
 			<h:button value="Cancel" outcome="/index.xhtml" />
 			<h:outputLabel for="confirmPassword">* required fields</h:outputLabel>
+			
+			
+			<p:tooltip id="toolTipFocus2" for="password" value="Password should contain min 6 characters,  max 10 characters, at least 1 lowercase letter, 1 uppercase letter and 1 number." showEvent="focus" hideEvent="blur" />
+			
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
